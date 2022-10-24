@@ -1,0 +1,12 @@
+ .headerClass {  
+    width: 100%;
+    background: #ffffff;
+    border-bottom: #eeeeee 1px solid; 
+    margin: 0px auto 10px  auto;
+  }
+
+  .mainContent { 
+    flex-grow: 1;
+    margin: 20px 0px 0px 0px;
+    border: 1px solid #eeeeee;
+  }

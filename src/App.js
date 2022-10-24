@@ -3,7 +3,10 @@
 
 import Main from './pages/Main';
 import NotFound from './pages/NotFound';
-
+import About from './pages/About';
+import Contact from './pages/Contact';
+ 
+ 
 import {
   BrowserRouter as Router,
  // Switch,
@@ -22,8 +25,8 @@ function App() {
       <Router>
         <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/about" element={<h2>About</h2>} />
-            <Route path="/contact" element={(<h2>Contacts</h2>)} />
+            <Route path="/about" element={<About/>} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     </Router>
