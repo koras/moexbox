@@ -1,6 +1,4 @@
-//import React, { ref } from 'react';
-import { Line } from 'react-chartjs-2';
-
+import React from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,9 +7,10 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend
-} from "chart.js";
-import { useRef } from "react";
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import faker from 'faker';
 
 ChartJS.register(
   CategoryScale,
@@ -23,36 +22,39 @@ ChartJS.register(
   Legend
 );
 
-export const data = {
-  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-  datasets: [
-    {
-      label: "First dataset",
-      data: [33, 53, 85, 41, 44, 65],
-      fill: true,
-      backgroundColor: "rgba(75,192,192,0.2)",
-      borderColor: "rgba(75,192,192,1)"
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
     },
-    {
-      label: "Second dataset",
-      data: [33, 25, 35, 51, 54, 76],
-      fill: false,
-      borderColor: "#742774"
-    }
-  ]
+    title: {
+      display: true,
+      text: 'Chart.js Line Chart',
+    },
+  },
 };
 
-function LineTest() {
- // this.chartRef = React.createRef();
-  const chartRef = useRef<Line>(null);
-//  const chartRef = useRef<ChartJS<"line", number[], string>>(null);
- 
- 
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-  return ( 
-    <div> <Line data={data} ref={chartRef} /></div>
-  );
+export const data = {
+  labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+    {
+      label: 'Dataset 2',
+      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      borderColor: 'rgb(53, 162, 235)',
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+  ],
+};
+
+export function LineTest() {
+  return <Line options={options} data={data} />;
 }
-
- // https://drive.google.com/drive/folders/102GkU_lXWxmWmonuF5kc2E5wS30Uw2VR
-export default LineTest;
