@@ -1,6 +1,6 @@
- 
+
 import './../App.css';
-import ContentBox from './../component/ContentBox';
+import ContentBox from '../component/ContentBox';
 
 function App() {
   return (
@@ -12,4 +12,5 @@ function App() {
   );
 }
 
+ // https://drive.google.com/drive/folders/102GkU_lXWxmWmonuF5kc2E5wS30Uw2VR
 export default App;

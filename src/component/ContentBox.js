@@ -1,8 +1,8 @@
  
-import {
+// import {
 
-  Link
-} from "react-router-dom";
+//   Link
+// } from "react-router-dom";
 import Menu from './../component/menu/Menu';
 import Header from './header/Header';
 
@@ -28,7 +28,7 @@ const menuClass = {
 
 
 
-function ContentBox({content, children}) {
+function ContentBox({content, children, ...params}) {
   return (
     <div  >
       <div className="headerClass"> 
@@ -39,8 +39,20 @@ function ContentBox({content, children}) {
               <div  style={menuClass}>
                 <Menu/> 
               </div>
+
             <div  className="mainContent" >
+               
+            <div  className="titleClass">
+                <h2>{params.title}</h2>
+              </div> 
+
+
+            <div  className="boxContent">
                   {children}
+            </div> 
+
+                 
+
             </div>
           </div>
       </div>

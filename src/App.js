@@ -5,6 +5,7 @@ import Main from './pages/Main';
 import NotFound from './pages/NotFound';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Chart from './pages/Chart';
  
  
 import {
@@ -27,7 +28,10 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/about" element={<About/>} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/chart" element={<Chart />} />
+             
             <Route path="*" element={<NotFound />} />
+            
         </Routes>
     </Router>
     </div>

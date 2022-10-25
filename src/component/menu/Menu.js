@@ -5,7 +5,6 @@ import {
 } from "react-router-dom";
 
 import './styleMenu.css';
-
  
 function Menu() {
   return ( 
@@ -20,6 +19,11 @@ function Menu() {
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
+          <li>
+            <Link to="/chart">Chart</Link>
+          </li>
+
+           
         </ul> 
      </div> 
   );
