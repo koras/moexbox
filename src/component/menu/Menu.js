@@ -22,8 +22,6 @@ function Menu() {
           <li>
             <Link to="/chart">Chart</Link>
           </li>
-
-           
         </ul> 
      </div> 
   );

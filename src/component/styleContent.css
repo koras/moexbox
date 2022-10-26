@@ -32,3 +32,9 @@
     font-weight: bold;
     
   }
+
+  .blockHr {
+    border-top: 1px #eeeeee solid;
+    margin: 30px 0px;
+    width: 80%;
+  }

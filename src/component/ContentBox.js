@@ -38,21 +38,15 @@ function ContentBox({content, children, ...params}) {
             <div style={mainClass}>
               <div  style={menuClass}>
                 <Menu/> 
+                <div className="blockHr"></div>
               </div>
-
             <div  className="mainContent" >
-               
             <div  className="titleClass">
                 <h2>{params.title}</h2>
               </div> 
-
-
             <div  className="boxContent">
                   {children}
-            </div> 
-
-                 
-
+            </div>
             </div>
           </div>
       </div>
