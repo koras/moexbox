@@ -1,0 +1,11 @@
+ .graphic-tab { 
+    width: 100%;
+    display: block;
+    background: #ffffff;
+    padding: 0px;
+    border-bottom: #b7b7b7 1px solid;
+  }
+
+ .page-text {
+  padding: 10px;
+ }

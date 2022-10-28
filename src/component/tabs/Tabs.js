@@ -9,30 +9,28 @@ import { useState } from "react";
  
 
 
-const objects = [
-  {name:'кликай',id:1,hint:''},
-  {name:'Бабло',id:2,hint:''},
-  {name:'даааааа',id:3,hint:''},
-  {name:'Кнопка',id:4}, 
-  {name:'Пустышка',id:5,hint:'asdasd'}, 
-]
- 
-
-function Tabs() {
+function Tabs(props) {
  
 const [activeTab ,setActiveTab] = useState(1);
+const [hintInfo ,setHintInfo] = useState('Время изменения');
+const [changes ,setСhanges] = useState(-24);
 
 
 
-const onClickTab =(k) =>{ 
-  console.log(k)
-  setActiveTab(k);
+const onClickTab =(k) =>{  
+  setActiveTab(k); 
+ let info =   props.objects.filter(item=>{
+     return item.id ===k;
+   })
+   setСhanges(info[0].changes);
+   setHintInfo(info[0].hintInfo);
+   props.onTimeChange(info[0].time);
 }
 const  activeNav = (id) => {
   if (id === activeTab) {
     return "active";
   } else {
-    return "nav-link";
+    return "tab-link";
   }
 }
 
@@ -46,26 +44,25 @@ function Hint(props) {
 }
 
 
-function ObjectRow(props) {
-  return  <li className={ activeNav(props.id) }
-    onClick={() => onClickTab(props.id)}>
+function ObjectRow(propsRows) {
+  return  <li className={ activeNav(propsRows.id) }
+    onClick={() => onClickTab(propsRows.id)}>
     <div className="tab-button">
-      <div className={titleClass(props)}>{props.name}</div> 
-      { props.hint  && props.hint != "" ? <Hint hint={props.hint} /> : null }
+      <div className={titleClass(propsRows)}>{propsRows.name}</div> 
+      { propsRows.hint  && propsRows.hint != "" ? <Hint hint={propsRows.hint} /> : null }
     </div> 
   </li>;
 }
 
 
-
-function Info(props) {
+function Info() {
   return   <div className="tab-info-block">
               <div className="tab-info"> 
-                <div className='tab-info_name'>Изменение цены</div> 
-                <div className='tab-info_hint'>за последний год</div> 
+                <div className='tab-info_name'>{props.infoBox.title}</div> 
+                <div className='tab-info_hint'>{hintInfo}</div> 
               </div>
               <div className="tab-info-price"> 
-                  <div className='tab-info-block_name'>-11,49%</div> 
+                  <div className='tab-info-block_name minus'>{changes}%</div> 
                 </div>
     </div> ;
 }
@@ -77,7 +74,7 @@ function Info(props) {
          <Info  /> 
         <div className="tab-list"> 
           <ul>
-            {objects.map((object, i) => <ObjectRow name={object.name} hint={object.hint} id={object.id} key={i} />)}
+            {props.objects.map((object, i) => <ObjectRow name={object.name} hint={object.hint} id={object.id} key={i} />)}
           </ul>
         </div>
      </div> 

@@ -1,4 +1,5 @@
 .tabs{
+  color: #5e5e5e;
   display: flex; 
   padding: 0px 0px ;
   margin: 0px 0px 0px 0px;
@@ -31,32 +32,41 @@
 { 
   cursor: pointer;
   display: block;
-  color: #383737;
   padding: 10px 10px;
-  font-weight: 500;
-  background:  #eeeeee;
+  font-weight: 100;
+  background:  #FAFAFA;
   text-decoration: none;
   font-size: 16px;
-  border: 1px solid #5e5e5e; 
+  border: 1px solid #eeeeee ;
+  border-right: 0px solid #ffffff ;
   height: 45px;
 }
 
+ 
+
 .tab-list .active .tab-button
 {  
-  border: 1px solid #b12d2d; 
-  background:  #812222;
+  border: 1px solid #eeeeee; 
+  background:  #EEEEEE;
 }
 .tab-list li:first-letter div 
 {  
-  border-left: 1px solid #ffffff; 
+  border-left: 1px solid #ECECEC; 
 }
 
 .tab-list li .tab-button:hover
-{ 
-  color:#222121;
-  border: 1px solid #d6d6d6;
-  background:  #eeeeee;
+{  
+  background:  #FAFAFA;
+  background:  #EEEEEE;
 }
+
+.tab-list .active .tab-button:hover
+{ 
+  border: 1px solid #ECECEC;
+  background:  #FAFAFA;
+  background:  #EEEEEE;
+}
+
 
 .tab-button__title {
   
@@ -64,14 +74,12 @@
 }
 
 .tab-button__title_one {
-  padding: 10px 10px;
+  padding: 15px 10px;
+  font-size: 15px;
 } 
 .tab-button__hint {
   cursor: pointer;
   display: block;
-  color: #383737; 
-  font-weight: 500;
-  background:  #a73b3b;
   text-decoration: none;
   font-size: 12px;
 }
@@ -79,14 +87,44 @@
   display: none;
 }
 .tab-info-block {
-  width: 40%; 
+  width: 40%;
   display: flex;
-  color: #383737;
-  padding: 10px 10px;
+  padding: 2px 10px;
   font-weight: 500;
-  background:  #eeeeee;
+  background: #ffffff;
   text-decoration: none;
   font-size: 16px;
-  border: 1px solid #5e5e5e; 
-  height: 45px;
+  border: 1px solid #ffffff;
+  height: 61px;
+}
+.tab-info-block_name {
+  color: #a1a1a1;
+  font-size: 22px;
+  padding: 12px 2px;
+
+}
+.tab-info {
+  display: block;
+  width: 100%; 
+}
+.tab-info_hint {
+  font-weight: bold;
+  font-size: 12px; 
+}
+.tab-info_name { 
+  padding: 3px 0px; 
+}
+.minus {
+  color: #a83636;
+}
+.tab-link {
+
+}
+.tab-list:last-child
+{ 
+  border-right: 1px solid #EEEEEE;
+}
+.tab-list li  
+{ 
+ 
 }
