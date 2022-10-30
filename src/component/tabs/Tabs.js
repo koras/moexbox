@@ -40,7 +40,7 @@ const  activeNav = (id) => {
 
 
 const titleClass = (props) =>{
-  return (props.hint  && props.hint  != "")?"tab-button__title":"tab-button__title_one "; 
+  return (props.hint  && props.hint  !== "")?"tab-button__title":"tab-button__title_one "; 
 }
 
 function Hint(props) {
@@ -53,7 +53,7 @@ function ObjectRow(propsRows) {
     onClick={() => onClickTab(propsRows.id)}>
     <div className="tab-button">
       <div className={titleClass(propsRows)}>{propsRows.name}</div> 
-      { propsRows.hint  && propsRows.hint != "" ? <Hint hint={propsRows.hint} /> : null }
+      { propsRows.hint  && propsRows.hint !== "" ? <Hint hint={propsRows.hint} /> : null }
     </div> 
   </li>;
 }
