@@ -1,13 +1,12 @@
  
-import {
 
-  Link
-} from "react-router-dom";
+import {  useDispatch } from 'react-redux';
 
 import './styleTabs.css';
 import { useState } from "react";
  
 
+import {  increment } from '../../slices/counterSlice';
 
 function Tabs(props) {
  
@@ -15,7 +14,10 @@ const [activeTab ,setActiveTab] = useState(1);
 const [hintInfo ,setHintInfo] = useState('Время изменения');
 const [changes ,setСhanges] = useState(-24);
 
+const dispatch = useDispatch();
 
+  // Возвращает метод store.dispatch() текущего хранилища
+ 
 
 const onClickTab =(k) =>{  
   setActiveTab(k); 
@@ -25,6 +27,8 @@ const onClickTab =(k) =>{
    setСhanges(info[0].changes);
    setHintInfo(info[0].hintInfo);
    props.onTimeChange(info[0].time);
+   dispatch(increment())
+ //  dispatch(increment());
 }
 const  activeNav = (id) => {
   if (id === activeTab) {
@@ -55,10 +59,10 @@ function ObjectRow(propsRows) {
 }
 
 
-function Info() {
+function Info() { 
   return   <div className="tab-info-block">
               <div className="tab-info"> 
-                <div className='tab-info_name'>{props.infoBox.title}</div> 
+                <div   className='tab-info_name'>{props.infoBox.title}</div> 
                 <div className='tab-info_hint'>{hintInfo}</div> 
               </div>
               <div className="tab-info-price"> 
