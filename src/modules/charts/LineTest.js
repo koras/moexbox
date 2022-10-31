@@ -71,13 +71,18 @@ ChartJS.register(
 
   onClick : (event, items) =>{
     if(items && items[0]){ 
-    console.log(items);
-    console.log(items[0].index);
-    console.log(chartRef.current);
+  //  console.log(items);
+  //  console.log(items[0].index);
+  //  console.log(chartRef.current);
     console.log(chartRef.current.data.datasets[0].data      ); 
     let   chart = chartRef.current;
     chart.data.datasets[0].data.push(123)
     chart.data.labels.push('color');
+
+    console.log(chart.options ); 
+  //  console.log(chart.options.elements.line.borderDash.push(3) ); 
+   // chart.options.scales[2].title='asdasd'
+
     console.log(chart    ); 
     chart.update();
     // ChartJS.update();
@@ -90,7 +95,7 @@ const data = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets:  [{
     fill: true,
-    label: '# of Votes',
+    label: ['asd','asd','','asd','asd','asd'],
     data: [12, 19, 3, 5, 2, 3],
     
     backgroundColor: [
@@ -109,8 +114,16 @@ const data = {
         'rgba(153, 102, 255, 1)',
         'rgba(255, 159, 64, 1)'
     ],
-    borderWidth: 1,
-    tension: 0.1
+    borderWidth: [
+        4,
+        4,
+        25,
+        4,
+        4,
+        4,
+    ],
+  //  borderWidth: 1,
+    tension: 0.5
 }] 
 };
 
