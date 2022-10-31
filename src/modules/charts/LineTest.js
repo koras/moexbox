@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useRef} from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -21,10 +21,15 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+/**
+ * documentation 
+ * @link https://www.chartjs.org/docs/latest/developers/updates.html
+ * 
+ */
 
-export const options = {
- 
-   
+ export function LineTest() {
+
+  const options = {
   responsive: true,
   plugins: {
     id: 'myEventCatcher', 
@@ -68,11 +73,19 @@ export const options = {
     if(items && items[0]){ 
     console.log(items);
     console.log(items[0].index);
-  }
+    console.log(chartRef.current);
+    console.log(chartRef.current.data.datasets[0].data      ); 
+    let   chart = chartRef.current;
+    chart.data.datasets[0].data.push(123)
+    chart.data.labels.push('color');
+    console.log(chart    ); 
+    chart.update();
+    // ChartJS.update();
+    }
   },
 };
 
-export const data = {
+const data = {
   fill: true,
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets:  [{
@@ -101,14 +114,12 @@ export const data = {
 }] 
 };
 
-
-
-export function LineTest() {
-  //const chartRef = useRef();
+ 
+  const chartRef = useRef('chart');
 
  
 
-  return <Line options={options} data={data}  
+  return <Line  ref={chartRef} options={options} data={data}  
   
 
   
