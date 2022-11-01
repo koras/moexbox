@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useRef} from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -21,10 +21,15 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+/**
+ * documentation 
+ * @link https://www.chartjs.org/docs/latest/developers/updates.html
+ * 
+ */
 
-export const options = {
- 
-   
+ export function LineTest() {
+
+  const options = {
   responsive: true,
   plugins: {
     id: 'myEventCatcher', 
@@ -66,18 +71,31 @@ export const options = {
 
   onClick : (event, items) =>{
     if(items && items[0]){ 
-    console.log(items);
-    console.log(items[0].index);
-  }
+  //  console.log(items);
+  //  console.log(items[0].index);
+  //  console.log(chartRef.current);
+    console.log(chartRef.current.data.datasets[0].data      ); 
+    let   chart = chartRef.current;
+    chart.data.datasets[0].data.push(123)
+    chart.data.labels.push('color');
+
+    console.log(chart.options ); 
+  //  console.log(chart.options.elements.line.borderDash.push(3) ); 
+   // chart.options.scales[2].title='asdasd'
+
+    console.log(chart    ); 
+    chart.update();
+    // ChartJS.update();
+    }
   },
 };
 
-export const data = {
+const data = {
   fill: true,
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets:  [{
     fill: true,
-    label: '# of Votes',
+    label: ['asd','asd','','asd','asd','asd'],
     data: [12, 19, 3, 5, 2, 3],
     
     backgroundColor: [
@@ -96,19 +114,25 @@ export const data = {
         'rgba(153, 102, 255, 1)',
         'rgba(255, 159, 64, 1)'
     ],
-    borderWidth: 1,
-    tension: 0.1
+    borderWidth: [
+        4,
+        4,
+        25,
+        4,
+        4,
+        4,
+    ],
+  //  borderWidth: 1,
+    tension: 0.5
 }] 
 };
 
-
-
-export function LineTest() {
-  //const chartRef = useRef();
+ 
+  const chartRef = useRef('chart');
 
  
 
-  return <Line options={options} data={data}  
+  return <Line  ref={chartRef} options={options} data={data}  
   
 
   
