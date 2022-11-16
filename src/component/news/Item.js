@@ -10,7 +10,8 @@ import "./styleNews.css";
 // date: "12.12.2022",
 
 const getUrl = (props) => {
-  return "/event/" + props.ticker + "/" + props.date + "/" + props.title_url;
+  //  return "/events/" + props.ticker + "/" +props.type+'-' + props.title_url +'-' +props.date;
+  return "/events/" + props.ticker + "/" +props.url;
 };
 const classNameEvent = (props) => {
   return "news-item-head__divid news-item-head__event_" + props.type;
@@ -33,7 +34,7 @@ function News() {
           ></div>
           <div className="news-item-head__event">{props?.item?.event}</div>
           <div className="news-item-head__title">
-            <Link to={()=>{getUrl(props.item)}}>{props.item.title}</Link>
+            <Link to={getUrl(props.item)}>{props.item.title}</Link>
           </div>
         </div>
         <div className="news-item-head__text">{props.item.text}</div>
@@ -41,7 +42,7 @@ function News() {
     );
   };
 
-  const news = useSelector((state) => state.counter.news);
+  const news = useSelector((state) => state.newsItem.news);
   //{count}
   return (
     <div>

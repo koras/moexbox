@@ -6,10 +6,11 @@ import NotFound from './pages/NotFound';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Chart from './pages/Chart';
-import { Provider } from 'react-redux';
+import Events from './pages/Events';
+//import { Provider } from 'react-redux';
 import store from './store';
- 
-
+import {Provider} from "mobx-react";
+// https://habr.com/ru/post/471048/
  
 
  
@@ -38,6 +39,7 @@ function App() {
               <Route path="/about" element={<About/>} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/chart" element={<Chart />} />
+              <Route path="/events/:ticker/:url" element={<Events />} />
               
               <Route path="*" element={<NotFound />} />
               
