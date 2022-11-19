@@ -7,10 +7,8 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Chart from './pages/Chart';
 import Events from './pages/Events';
-//import { Provider } from 'react-redux';
-import store from './store';
-import {Provider} from "mobx-react";
-// https://habr.com/ru/post/471048/
+
+
  
 
  
@@ -32,7 +30,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-   <Provider store={store}> 
+
       <Router>
           <Routes>
               <Route path="/" element={<Main />} />
@@ -45,7 +43,6 @@ function App() {
               
           </Routes>
       </Router>
-    </Provider>
     </div>
   );
 }

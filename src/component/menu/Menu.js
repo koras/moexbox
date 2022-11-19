@@ -2,13 +2,11 @@
 import {
 
   Link
-} from "react-router-dom";
-import { useSelector} from 'react-redux'; 
+} from "react-router-dom"; 
 import './styleMenu.css';
  
 function Menu() {
-
-  const count = useSelector((state) => state.counter.value);
+ 
 
   return ( 
     <div className="menu"> 
@@ -23,7 +21,7 @@ function Menu() {
             <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>
-            <Link to="/chart">Chart {count}</Link>
+            <Link to="/chart">Chart  </Link>
           </li>
         </ul> 
      </div> 
