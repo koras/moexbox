@@ -1,12 +1,11 @@
  
 
-import {  useDispatch } from 'react-redux';
 
 import './styleTabs.css';
 import { useState } from "react";
  
 
-import {  increment } from '../../slices/counterSlice';
+//import {  increment } from '../../slices/counterSlice';
 
 function Tabs(props) {
  
@@ -14,9 +13,7 @@ const [activeTab ,setActiveTab] = useState(1);
 const [hintInfo ,setHintInfo] = useState('Время изменения');
 const [changes ,setСhanges] = useState(-24);
 
-const dispatch = useDispatch();
 
-  // Возвращает метод store.dispatch() текущего хранилища
  
 
 const onClickTab =(k) =>{  
@@ -26,9 +23,7 @@ const onClickTab =(k) =>{
    })
    setСhanges(info[0].changes);
    setHintInfo(info[0].hintInfo);
-   props.onTimeChange(info[0].time);
-   dispatch(increment())
- //  dispatch(increment());
+   props.onTimeChange(info[0].time); 
 }
 const  activeNav = (id) => {
   if (id === activeTab) {

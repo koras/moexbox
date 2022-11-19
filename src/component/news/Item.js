@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link } from "react-router-dom"; 
 import "./styleNews.css";
 
 // event: "Новости",
@@ -41,14 +40,12 @@ function News() {
       </div>
     );
   };
-
-  const news = useSelector((state) => state.newsItem.news);
-  //{count}
+ 
   return (
     <div>
-      {news.map((item, i) => (
+      {/* {news.map((item, i) => (
         <ObjectRow key={i} item={item} />
-      ))}
+      ))} */}
     </div>
   );
 }
