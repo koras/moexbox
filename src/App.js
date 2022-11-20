@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Chart from './pages/Chart';
+import ChartTicker from './pages/ChartTicker';
 import Events from './pages/Events';
 
 
@@ -30,7 +31,6 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-
       <Router>
           <Routes>
               <Route path="/" element={<Main />} />
@@ -38,6 +38,9 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/chart" element={<Chart />} />
               <Route path="/events/:ticker/:url" element={<Events />} />
+               
+               
+              <Route path="/crypto/:ticker" element={<ChartTicker />} />
               
               <Route path="*" element={<NotFound />} />
               

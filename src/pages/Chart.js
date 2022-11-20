@@ -1,9 +1,9 @@
 
 import './../App.css';
 import ContentBox from '../component/ContentBox'; 
-import {LineTest} from "../modules/charts/LineTest";
+import {LineTicker} from "../modules/charts/LineTicker";
 import Tabs from "../component/tabs/Tabs";
-import News from "../component/news/Item";
+import {News} from "../component/news/Item";
 
 import './stylePages.css';
 
@@ -28,7 +28,7 @@ function Chart() {
       <ContentBox title="График изменения цен Биткоина"> 
        <div className='graphic-tab'>
           <Tabs onTimeChange={handleTimeChange} objects={objects} infoBox={infoBox}/>
-          <LineTest    />
+          <LineTicker    />
         </div>
 
         <div className='page-text'> 

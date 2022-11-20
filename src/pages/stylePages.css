@@ -1,11 +1,37 @@
- .graphic-tab { 
-    width: 100%;
-    display: block;
-    background: #ffffff;
-    padding: 0px;
-    border-bottom: #b7b7b7 1px solid;
-  }
+.graphic-tab {
+  width: 100%;
+  display: block;
+  background: #ffffff;
+  padding: 0px;
+  border-bottom: #b7b7b7 1px solid;
+}
 
- .page-text {
+.page-text {
   padding: 10px;
- }
+}
+
+.event-head {
+  display: flex;
+  flex-direction: row; 
+  border-bottom: 1px dashed #b7b7b7;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 11px;
+}
+.event-head__name{
+  display: flex;
+  flex-direction: row; 
+}
+
+.event-head__name-ticker {
+ padding: 0px 10px 0px 0px; 
+}
+
+.event-date {
+  font-weight: 600; 
+  display: flex;
+  flex-direction: row; 
+  justify-content: end;
+  padding: 10px;
+  font-size: 12px;
+}

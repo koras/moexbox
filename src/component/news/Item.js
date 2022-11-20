@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"; 
 import "./styleNews.css";
+import { observer } from "mobx-react-lite";
+import { news } from "./../../stories/storeNews";
 
 // event: "Новости",
 // type: "news",
@@ -21,8 +23,8 @@ const checkChart = (props) => {
   return props.id;
 };
 
-
-function News() {
+export const News = observer(() => {
+ 
   const ObjectRow = (props) => {
     return (
       <div className="news-item">
@@ -40,14 +42,14 @@ function News() {
       </div>
     );
   };
- 
+  //const news = useSelector((state) => state.counter.news);
+  const storeNews = news.getNews();
   return (
     <div>
-      { news.map((item, i) => (
+      { storeNews.map((item, i) => (
         <ObjectRow key={i} item={item} />
       )) }
     </div>
   );
-}
+})
 
-export default News;
