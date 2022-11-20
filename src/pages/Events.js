@@ -3,7 +3,7 @@ import './../App.css';
 import ContentBox from '../component/ContentBox'; 
 
 // https://reactrouter.com/en/main/hooks/use-params
-import {  useParams } from "react-router-dom";
+//import {  useParams } from "react-router-dom";
 
 import './stylePages.css';
 

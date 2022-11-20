@@ -43,9 +43,9 @@ function News() {
  
   return (
     <div>
-      {/* {news.map((item, i) => (
+      { news.map((item, i) => (
         <ObjectRow key={i} item={item} />
-      ))} */}
+      )) }
     </div>
   );
 }
