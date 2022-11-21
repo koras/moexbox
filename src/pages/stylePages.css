@@ -28,10 +28,99 @@
 }
 
 .event-date {
-  font-weight: 600; 
-  display: flex;
-  flex-direction: row; 
-  justify-content: end;
+  font-weight: 600;  
   padding: 10px;
   font-size: 12px;
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: row;  
+}
+
+.dashboard-item { 
+  border: 1px #eeeeee solid;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;  
+  margin: 0px 0px 15px 0px;
+}
+.dashboard-item-image {
+  display: block;
+  width: 200px;
+  height: 150px;
+  background: #ffffff;
+  border-right: 2px #eeeeee solid;
+  vertical-align: middle;
+  /* text-align: center; */
+  /* line-height: normal; */
+  /* display: inline-block; */
+  /* vertical-align: middle; */
+  position: relative;
+}
+.dashboard-item-image img{
+  vertical-align: middle;
+  max-width: 150px;
+  max-height: 150px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto;
+  
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+  display: flex;
+}
+
+.dashboard-item-description { 
+  width: 550px;
+  height: 130px;
+  display: block;
+  padding: 10px;
+
+}
+.dashboard-item-change { 
+  width: 200px;
+  height: 150px;
+  background: #cdcdcd;
+}
+ 
+.dashboard-item-description-head {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;  
+  padding: 0px;
+}
+.dashboard-item-description-head__price .price-red{
+  font-size: 15px;
+}
+.dashboard-item-description-head__name { 
+  font-family: 'Source Sans Pro', 'Lucida Grande', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color:#91a3a8;
+}
+
+
+.dashboard-item-description-text {
+  width: 100%; 
+  letter-spacing: 5px;
+  letter-spacing: 0.3px;
+  height: 75px;
+  font-size: 15px;
+  line-height: 1.5;
+  line-height: 1.3;
+}
+
+.dashboard-item-description-controll {
+ 
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+}
+.dashboard-item-description-controll a {
+  text-decoration: none;
+  font-family: 'Source Sans Pro', 'Lucida Grande', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
 }

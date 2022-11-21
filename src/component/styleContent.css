@@ -23,6 +23,9 @@
     font-style: normal;
     line-height: 1.6;
   }
+  .boxContent-hide {
+    border: 1px solid #ffffff; 
+  }
 
   .titleClass h2 {
     font-family: Arial, Helvetica, Verdana, sans-serif;

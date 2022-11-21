@@ -25,6 +25,12 @@ const menuClass = {
 };
 
 function ContentBox({ content, children, ...params }) {
+
+  let className = 'boxContent';
+  if (params.hideBorder) {
+    className += ' boxContent-hide';
+  }
+  
   return (
     <div>
       <div className="headerClass">
@@ -42,7 +48,7 @@ function ContentBox({ content, children, ...params }) {
                 {params.ticker ? params.ticker + " : " : ""} {params.title}
               </h2>
             </div>
-            <div className="boxContent">{children}</div>
+            <div className={className}>{children}</div>
           </div>
         </div>
       </div>
