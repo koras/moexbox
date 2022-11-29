@@ -16,19 +16,7 @@ function Events({ request }) {
   const event = news.getNew(ticker, url);
   // const  cost = price(event.instrument);
 
-  // {
-  //   id: 103,
-  //   event: "Новости",
-  //   type: "news",
-  //   url:'kurs-ruble-to-12-12-2022',
-  //   ticker: 'btc',
-  //   title_url: 'kurs-ruble',
-  //   instrumentId: 1111,
-  //   date: "12.12.2022",
-  //   title: "Новый курс рубля",
-  //   text: "По состоянию на 16:00 мск на основе информации, предоставленной банками и обменными пунктами Москвы, Cредний курс покупки/продажи наличного доллара составил 62,68/68 руб. за",
-  //   link: "https://ru.investing.com/currencies/usd-rub",
-  // },
+
   return (
     <ContentBox title={event.title} ticker={event.instrument.name}>
       <div className="event-head">

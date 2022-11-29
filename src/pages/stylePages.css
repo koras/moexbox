@@ -108,6 +108,12 @@
   font-size: 19px;
   color:#91a3a8;
 }
+.dashboard-item-description-head__name a { 
+  text-decoration: none;
+}
+.dashboard-item-description-head__name a:hover { 
+  color:#790896;
+}
 
 
 .dashboard-item-description-text {
@@ -184,4 +190,11 @@
 .dashboard-chart {
   width: 200px;
   height: 50px;
+}
+
+
+
+.button-color {
+  color: "#6a6867";
+  border-color: "#6a6867";
 }

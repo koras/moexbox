@@ -47,6 +47,18 @@
   padding: 10px 0px;
 }
 
+.news-item-head__controll {
+  font-size: 20px;
+  padding: 0px 10px;
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+}
+.news-item-head__controll button {
+  color: "#6a6867";
+  border-color: "#6a6867";
+} 
+
 .news-item-head__divid {
   padding: 4px 5px;
   margin: 18px 5px 0px 25px;

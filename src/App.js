@@ -9,6 +9,7 @@ import Contact from './pages/Contact';
 import ChartTicker from './pages/ChartTicker';
 import Dashboard from './pages/Dashboard';
 import Events from './pages/Events';
+import EventEdit from './pages/EventEdit';
 
 
  
@@ -42,8 +43,8 @@ function App() {
 
 
               <Route path="/events/:ticker/:url" element={<Events />} />
-               
-               
+              <Route path="/events/edit/:ticker/:url" element={<EventEdit />} />
+              
               <Route path="/crypto/:ticker" element={<ChartTicker />} />
               
               <Route path="*" element={<NotFound />} />
