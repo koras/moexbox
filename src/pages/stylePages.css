@@ -198,3 +198,86 @@
   color: "#6a6867";
   border-color: "#6a6867";
 }
+
+
+.textfild {
+  padding: 3px;
+}
+
+.row-form {
+  padding: 10px 0px 10px 0px;
+}
+
+.row-form-line div {
+  display: inline;
+}
+ 
+.form-block-25 {
+  width: 50%;
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+
+}
+.form-block-25 label{ 
+  display: inline;
+  width: 200px;
+  text-align: right;
+  padding: 7px 10px 0px 10px;
+  font-size: 15px;
+} 
+
+
+.form-select {
+  width:56%; 
+  z-index: 10;
+}
+.row-line-block {
+  
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+}
+
+
+.form-block-100{
+  width:100%;
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+}
+
+
+.form-block-100 label{ 
+  display: inline;
+  width: 250px;
+  text-align: right;
+  padding: 5px 10px 0px 10px;
+  font-size: 15px;
+} 
+
+.form-block-100 input {  
+  width: 100%; 
+  font-size: 17px;
+} 
+
+.form-block-100 label, .form-block-25 label{ 
+font-weight: 600;
+}
+
+.form-content {
+  padding: 20px 20px 20px 20px;
+}
+
+textarea.form-control{
+  resize:none;
+}
+
+
+
+.button-right {
+  
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+}

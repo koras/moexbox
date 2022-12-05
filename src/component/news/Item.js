@@ -27,8 +27,7 @@ const checkChart = (props) => {
 export const News = observer(() => {
   const navigate = useNavigate();
 
-  const getUrlEdit = (props) => {
-    const url = "/events/edit/" + props.ticker + "/" + props.url;
+  const getUrlEdit = (props) => { 
     navigate("/events/edit/" + props.ticker + "/" + props.url);
   };
 
@@ -53,22 +52,11 @@ export const News = observer(() => {
         <div className="news-item-head__text">{props.item.text}</div>
 
         <div className="news-item-head__controll">
-          <Button
-            style={{
-              color: "#6a6867",
-              borderColor: "#6a6867",
-            }}
-            onClick={() => getUrlEdit(props.item)}
-            variant="outlined"
-            size="small"
-          >
-            Изменить
-          </Button>
+          <Button   size="small" onClick={() => getUrlEdit(props.item)} variant="outlined">Изменить</Button>
         </div>
       </div>
     );
-  };
-  //const news = useSelector((state) => state.counter.news);
+  }; 
   const storeNews = news.getNews();
   return (
     <div>
