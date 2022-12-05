@@ -1,0 +1,12 @@
+ 
+ .price-green{
+    color:  #265f48;
+ }
+ .price-red{
+    color:#e02841;
+ }
+ 
+ .price-green, .price-red{
+        font-weight: 600;
+ }
+ 

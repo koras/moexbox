@@ -10,6 +10,10 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+
+
+import { instrument } from "../../stories/storeInstrument";
+
 //import faker from 'faker';
 
 ChartJS.register(
@@ -27,8 +31,11 @@ ChartJS.register(
  * 
  */
 
- export function LineTest() {
+ export function LineTicker(props) {
 
+  const  ticker =   props.ticker;
+ 
+  
   const options = {
   responsive: true,
   plugins: {
@@ -38,12 +45,11 @@ ChartJS.register(
     },
     title: {
       display: false,
-      text: 'Chart.js Line Chart',
+      text: '',
     },
-
     subtitle: {
       display: false,
-      text: 'Custom Chart Subtitle'
+      text: ''
   }
 
 
@@ -90,43 +96,9 @@ ChartJS.register(
   },
 };
 
-const data = {
-  fill: true,
-  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-  datasets:  [{
-    fill: true,
-    label: ['asd','asd','','asd','asd','asd'],
-    data: [12, 19, 3, 5, 2, 3],
-    
-    backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-    ],
-    borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-    ],
-    borderWidth: [
-        4,
-        4,
-        25,
-        4,
-        4,
-        4,
-    ],
-  //  borderWidth: 1,
-    tension: 0.5
-}] 
-};
+ 
 
+  let  data = instrument.getChart(ticker);
  
   const chartRef = useRef('chart');
 
