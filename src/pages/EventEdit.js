@@ -23,9 +23,7 @@ import { news } from "./../stories/storeNews";
 
 
 export const  Events = observer( (  request ) => {
-  const sendEvent = (element) => {
-    console.log(element);
-  };
+ 
   let { ticker,url } = useParams();
  
   const editorRef = useRef(null);
@@ -45,9 +43,8 @@ export const  Events = observer( (  request ) => {
     }),
   };
 
-  const callback = (value) => {
-    console.log(value.value);
-    //  return value
+  const changeTypeEvent = (value) => {
+    news.changeTypeEvent( storeNew.id, value)
   };
 
 
@@ -65,37 +62,23 @@ export const  Events = observer( (  request ) => {
     { value: "orchestra", label: "Orchestra" },
   ];
   const [startDate, setStartDate] = useState(new Date());
-
-
   const storeNew = news.getNew(ticker,url);
-
-
   let event = Object.assign({}, storeNew);
- 
- // setStartDate(storeNew.date)
-  //onChangeDate(new Date(event.date))
-   
+
 const handleDateSelect = (info) =>
 {
     console.log(info);
 }
 
-
-
-  //var a = moment(storeNew.date); 
-  let onChangeDate = (date)=>{
-
-    news.setDateEvent(event.id, date)
-  //   setStartDate(date)
-   // console.log( moment(storeNew.date).format("DD/MM/YYYY"),  event.date);
-  //  console.log(el,new Date(el)); 
-      //event.date= moment(el).format("DD/MM/YYYY");
-     //   console.log( moment(event.date).format("DD-MM-YYYY"),  event.date);
-    // setStartDate(el)
-     //  (date:el) => setStartDate(date)}
-   //  return true;
-  }
-
+const sendEvent = () => {
+  console.log(news.eventNew);
+  console.log(news.eventNew.typeId);
+  console.log(news.eventNew.event);
+  console.log(news.eventNew.type );
+  console.log(news.eventNew);
+  
+};
+ 
  
 //console.log(a);
 
@@ -134,62 +117,67 @@ const handleDateSelect = (info) =>
                 })}
                 className="form-select"
                 placeholder="Что произошло?"
-                 onChange={callback}
+                onChange={(value)=>news.changeTypeEvent( storeNew.id, value)}
                 options={eventsName}
                 styles={customStyles}
               />
-            </div>   *
+            </div>  
 
             <div className="form-block-25">
             <label>Дата события:</label>
               <DatePicker  
               dateFormat='dd/MM/yyyy'
-              onChange={onChangeDate} 
+              onChange={date=>news.setDateEvent(storeNew.id, date)} 
               onSelect={handleDateSelect} //when day is clicked
-              selected={moment(event.date, 'DD/MM/YYYY').toDate()  }  
-              className="form-control" 
-           
-              />
+              selected={moment(storeNew.date, 'DD/MM/YYYY').toDate()  }  
+              className="form-control"  />
             </div>
           </div>
         </div>
-  
-        {/* <div className="row-form">
+        
+         <div className="row-form">
           <div className="form-block-100">
             <label>Короткое название:</label>
             <Form.Control
-              value={event.title}
+                onChange={text => news.changeEventName(storeNew.id,text.target.value)} 
+                value={storeNew.title}
+                type="text" 
+                // isInvalid={true}
                placeholder="Сплит акций, выход отчётности за квартал, выплата девидендов" />
           </div>
-        </div> */}
+        </div> 
 
-        {/* <div className="row-form">
+         <div className="row-form">
           <div className="form-block-100">
             <label>Источник:</label>
-            <Form.Control  value={event.source} placeholder="http://" />
+            <Form.Control  
+             onChange={text => news.changeEventSource(storeNew.id,text.target.value)} 
+             value={event.source} placeholder="http://" />
           </div>
-        </div> */}
-{/* 
+        </div> 
+ 
         <div className="row-form">
           <div className="form-block-100">
             <label>Короткое описание:</label>
             <Form.Control
+              onChange={text => news.changeEventText(storeNew.id,text.target.value)} 
               value={event.text}
               as="textarea"
               rows={3}
               placeholder="Объявление девидендов в 135 рублей на акцию"
             />
           </div>
-        </div> */}
+        </div> 
 
-        {/* <div className="row-form">
+         <div className="row-form">
           <div className="form-block-100">
             <label>Полное описание:</label>
 
             <Editor
               apiKey="5kp3x2dadjoph5cgpy61s3ha1kl7h6fvl501s3qidoyb4k6u"
-              onInit={(evt, editor) => (editorRef.current = editor)}
+             
               initialValue={storeNew.fulltext}
+               onEditorChange={text => news.changeEventFulltext(text)} 
               placeholder="Подробная новость или событие"
               init={{
                 extended_valid_elements: "br[*],p,b,",
@@ -210,7 +198,7 @@ const handleDateSelect = (info) =>
               }}
             />
           </div>
-        </div>   */}
+        </div>   
         <div className="row-form">
           <div className="form-block-100 button-right">
             <button type="button"  onClick={sendEvent} className="btn btn-primary">{textButton()}</button>
