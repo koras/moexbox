@@ -9,7 +9,9 @@ import Contact from './pages/Contact';
 import ChartTicker from './pages/ChartTicker';
 import Dashboard from './pages/Dashboard';
 import Events from './pages/Events';
-import EventEdit from './pages/EventEdit';
+import EventEdit from './pages/event/EventEdit';
+import EventEditComplete from './pages/event/EventEditComplete';
+import InspectEventShow from './pages/inspect/EventShow';
 
 
  
@@ -39,16 +41,19 @@ function App() {
               <Route path="/about" element={<About/>} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/inspect" element={<Dashboard />} />
 
+              <Route path="/inspect/:hash" element={<InspectEventShow />} />
 
-
+               
               <Route path="/events/:ticker/:url" element={<Events />} />
               <Route path="/events/edit/:ticker/:url" element={<EventEdit />} />
-              
+              <Route path="/checkevent/edit/:ticker/:url" element={<EventEdit />} />
+              <Route path="/checkevent/:ticker/:hash" element={<EventEditComplete />} />
+
+             
               <Route path="/crypto/:ticker" element={<ChartTicker />} />
-              
               <Route path="*" element={<NotFound />} />
-              
           </Routes>
       </Router>
     </div>

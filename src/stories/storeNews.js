@@ -1,10 +1,13 @@
 //import { observable,autorun, makeObservable, computed, action }  from "mobx"
 
 import { makeAutoObservable } from "mobx";
+ 
+
 
 import moment from "moment";
-//import _ from "lodash";
 
+//import _ from "lodash";
+let md5 = require('md5');
 class storeNews {
   constructor() {
     makeAutoObservable(this);
@@ -18,6 +21,7 @@ class storeNews {
       event: "Сплит акций",
       type: "split",
       typeId: 8,
+      hash: '78e731027d8fd50ed642340b7c9a63b3',
       source: "https://ru.investing.com/analysis/article-200298747",
       url: "split-couple-actii",
       title_url: "split-acti",
@@ -44,6 +48,7 @@ class storeNews {
       type: "reporting",
       typeId: 3,
       url: "dividend-couple",
+      hash: '78e731027d8fd50ed642340b7c91111111',
       source: "https://ru.investing.com/analysis/article-200298747",
       title_url: "dividends",
       instrument: {
@@ -69,6 +74,7 @@ class storeNews {
       type: "news",
       typeId: 4,
       ticker: "btc",
+      hash: '78e731027d8fd50ed642340b7c9444444',
       source: "https://ru.investing.com/analysis/article-200298747",
       url: "full-down-ruble",
       title_url: "full-ruble",
@@ -95,6 +101,7 @@ class storeNews {
       type: "news",
       typeId: 5,
       url: "kurs-ruble-to-12-12-2022",
+      hash: '78e731027d8fd50ed642340b7c97777777',
       ticker: "btc",
       title_url: "kurs-ruble",
       instrument: {
@@ -132,13 +139,15 @@ class storeNews {
   }
   // обновляем дату при редактированиие события
   setDateEvent(id, date) {
+    if(date){ 
     console.log(date);
-    this.news.forEach((element) => {
-      if (element.id === id) {
-        element.date = moment(date).format("DD/MM/YYYY");
-        this.eventNew.date = moment(date).format("DD/MM/YYYY");
-      }
-    });
+      this.news.forEach((element) => {
+        if (element.id === id) {
+          element.date = moment(date).format("DD/MM/YYYY");
+          this.eventNew.date = moment(date).format("DD/MM/YYYY");
+        }
+      });
+    }
   }
 
   changeEventName(id, text) {
@@ -179,11 +188,23 @@ class storeNews {
   // сохраняем событие
   saveEvent=()=> {
     console.log( this.eventNew);
+    return this.eventNew.hash;
+   return md5(this.eventNew.text +  Math.floor(Math.random()));
+  }
+  getInspectEvent(hash){
+    // сперва пытаемся получить новость по хэшу
+    const event = this.news.filter((item) => {
+      return item.hash === hash ;
+    });
+    this.eventNew = Object.assign({}, event[0]);
+    return event[0];
   }
 
   getNew(ticker, url) {
+    console.log(ticker, url)
+    // сперва пытаемся получить новость по хэшу
     const event = this.news.filter((item) => {
-      return item.url === url && item.ticker === ticker;
+      return item.url === url && item.ticker === ticker ||  item.hash === url && item.ticker === ticker ;
     });
     this.eventNew = Object.assign({}, event[0]);
     return event[0];

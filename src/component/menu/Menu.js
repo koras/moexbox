@@ -12,14 +12,13 @@ function Menu() {
       <ul>
           <li>
             <Link to="/">Home</Link>
+          </li> 
+          <li>
+            <Link to="/dashboard">Анализировать</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/inspect/78e731027d8fd50ed642340b7c91111111">Модерировать</Link>
           </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-        
         </ul> 
      </div> 
   );

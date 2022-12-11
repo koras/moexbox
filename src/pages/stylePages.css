@@ -281,3 +281,31 @@ textarea.form-control{
   display: flex;
   flex-direction: row;
 }
+
+
+
+.Modal {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  background-color: papayawhip;
+}
+
+
+
+.diffAdded{ 
+ color:rgb(0, 0, 0); 
+ background: #fad3d3;
+}
+.diffRemove{ 
+  color:rgb(0, 104, 0); 
+  background: #cbffd4;
+}
+.diffDefault{ 
+ color:rgb(0, 0, 0); 
+}
+.inspect-label label{
+  width: 350px;
+}
