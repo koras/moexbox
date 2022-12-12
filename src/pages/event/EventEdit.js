@@ -54,7 +54,7 @@ export const  Events = observer( (  request ) => {
   console.log(ticker,url);
 
   if(url === undefined){
-    storeNew = instrument.getSingle(ticker);
+    storeNew.instrument = instrument.getSingle(ticker);
     console.log( storeNew );
   }else{
     storeNew = news.getNew(ticker,url); 
@@ -95,7 +95,10 @@ const getDate = () => {
 }
  
 const sendEvent = () => {
-  console.log('sendEvent')
+
+  console.log('sendEvent',news.eventNew)
+
+  return;
   if(validation()){
     const hash = news.saveEvent(news.eventNew);
     navigate("/checkevent/"+news.eventNew.ticker+'/'+hash);
@@ -104,9 +107,19 @@ const sendEvent = () => {
 const getTitle = () => {
   console.log('sendEvent')
   if(storeNew.date){ 
-    return storeNew.name + "Создание, редактирование событий/новостей";
+    return storeNew.instrument.name + " : Редактирование событий/новостей";
   }
-  return storeNew.name + " : Добавление события";
+  return storeNew.instrument.name + " : Добавление события";
+};
+ 
+ 
+const getType = (item) => {
+  if(storeNew.id){ 
+    console.log('getType',item,storeNew.typeId)
+      return   eventsName.filter(function(option) {
+      return option.value === +storeNew.typeId;
+    })
+  }
 };
  
  
@@ -123,12 +136,10 @@ const getTitle = () => {
       <div className="row-form">
           <div className="row-line-block">
               <div className="form-block-25">
-              <label>Событие:</label>
+              <label>Событие:</label>{storeNew.value}
               <Select
-                defaultValue={event.typeId}
-                value={eventsName.filter(function(option) {
-                  return option.value === +event.typeId;
-                })}
+                defaultValue={getType()}
+                value={getType()}
                 className="form-select"
                 placeholder="Что произошло?"
                 onChange={(value)=>news.changeTypeEvent( storeNew.id, value)}
