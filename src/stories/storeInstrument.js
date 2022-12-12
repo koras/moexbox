@@ -11,7 +11,7 @@ class storeInstrument {
 
   instruments = [
     {
-      id: 1,
+      instrumentId: 1,
       name: "Биткоин",
       type: "crypto",
       ticker: "btc",
@@ -25,7 +25,7 @@ class storeInstrument {
       currency: "$",
     },
     {
-      id: 2,
+      instrumentId:   5,
       name: "Газпром",
       type: "crypto",
       images: {
@@ -39,7 +39,7 @@ class storeInstrument {
       currency: "$",
     },
     {
-      id: 2,
+      instrumentId:   4,
       name: "Газпром",
       type: "crypto",
       images: {
@@ -53,7 +53,7 @@ class storeInstrument {
       currency: "$",
     },
     {
-      id: 2,
+      instrumentId:   22,
       name: "Газпром",
       type: "crypto",
       images: {
@@ -67,7 +67,7 @@ class storeInstrument {
       currency: "$",
     },
     {
-      id: 2,
+      instrumentId:   446,
       name: "Газпром",
       type: "crypto",
       images: {
@@ -81,7 +81,7 @@ class storeInstrument {
       currency: "$",
     },
     {
-      id: 2,
+      instrumentId:   123,
       name: "Газпром",
       type: "crypto",
       images: {
@@ -95,7 +95,7 @@ class storeInstrument {
       currency: "$",
     },
     {
-      id: 2,
+      instrumentId:  34576,
       name: "Газпром",
       type: "crypto",
       images: {
@@ -109,7 +109,7 @@ class storeInstrument {
       currency: "$",
     },
     {
-      id: 2,
+      instrumentId:  12363,
       name: "Газпром",
       type: "crypto",
       images: {

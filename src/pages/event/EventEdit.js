@@ -11,49 +11,35 @@ import DatePicker from "react-datepicker";
 import Moment from "react-moment"; 
 import moment from 'moment';
 
-import "./../App.css";
-import ContentBox from "../component/ContentBox"; 
+import "./../../App.css";
+import ContentBox from "./../../component/ContentBox"; 
 import Select from "react-select";
-import "./stylePages.css";
+import "./../stylePages.css";
 import { Editor } from "@tinymce/tinymce-react";
-import { eventsName } from "./../constants/general";
-import { useParams } from "react-router-dom";
-import { news } from "./../stories/storeNews"; 
+import { eventsName } from "./../../constants/general";
+import { useNavigate,useParams  } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import { news } from "./../../stories/storeNews";  
+import { instrument } from "./../../stories/storeInstrument";
+import { getByTitle } from "@testing-library/react";
 
 
 
 export const  Events = observer( (  request ) => {
- 
-  let { ticker,url } = useParams();
- 
-  const editorRef = useRef(null);
-  // let { ticker, url } = useParams();
 
-  //const event = news.getNew(ticker, url);
-  // const  cost = price(event.instrument);
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      zIndex: 9999,
-    }),
-    control: (provided) => ({
-      ...provided,
-      //  marginTop: "5%",
-      zIndex: 9999,
-    }),
-  };
-
+  let  storeNew = {};
+  let { ticker,url } = useParams(); 
+  const navigate = useNavigate();
+ 
   const changeTypeEvent = (value) => {
     news.changeTypeEvent( storeNew.id, value)
   };
 
+ 
 
   const textButton = ()=>{
-    return 'Предложить изменение';
-    return 'Предложить новость';
+    return 'Предложить изменение'; 
   }
-
- 
 
   const options = [
     { value: "blues", label: "Blues" },
@@ -61,8 +47,18 @@ export const  Events = observer( (  request ) => {
     { value: "jazz", label: "Jazz" },
     { value: "orchestra", label: "Orchestra" },
   ];
-  const [startDate, setStartDate] = useState(new Date());
-  const storeNew = news.getNew(ticker,url);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isInvalidTitle, setIsInvalidTitle] = useState(false);
+  const [isInvalidSource, setIsInvalidSource] = useState(false);
+  const [isInvalidText, setIsInvalidText] = useState(false);
+  console.log(ticker,url);
+
+  if(url === undefined){
+    storeNew = instrument.getSingle(ticker);
+    console.log( storeNew );
+  }else{
+    storeNew = news.getNew(ticker,url); 
+  }
   let event = Object.assign({}, storeNew);
 
 const handleDateSelect = (info) =>
@@ -70,42 +66,60 @@ const handleDateSelect = (info) =>
     console.log(info);
 }
 
-const sendEvent = () => {
-  console.log(news.eventNew);
-  console.log(news.eventNew.typeId);
-  console.log(news.eventNew.event);
-  console.log(news.eventNew.type );
-  console.log(news.eventNew);
+// ПРоверяем условия
+const validation = () => {
+  setIsInvalidTitle(false);
+  setIsInvalidSource(false); 
+  setIsInvalidText(false);
   
+  if(news.eventNew.title.length < 10){ 
+   setIsInvalidTitle(true);
+  }
+  if(news.eventNew.source.length < 10){ 
+    setIsInvalidSource(true);
+  }
+  if(news.eventNew.text.length < 10){ 
+    setIsInvalidText(true);
+  }
+
+  return !(isInvalidTitle && isInvalidSource && isInvalidText);
+
+};
+
+
+const getDate = () => {
+  if(storeNew.date){ 
+    return moment(storeNew.date, 'DD/MM/YYYY').toDate()  ;
+    }
+    return moment().toDate()  ;
+}
+ 
+const sendEvent = () => {
+  console.log('sendEvent')
+  if(validation()){
+    const hash = news.saveEvent(news.eventNew);
+    navigate("/checkevent/"+news.eventNew.ticker+'/'+hash);
+  }
+};
+const getTitle = () => {
+  console.log('sendEvent')
+  if(storeNew.date){ 
+    return storeNew.name + "Создание, редактирование событий/новостей";
+  }
+  return storeNew.name + " : Добавление события";
 };
  
  
-//console.log(a);
-
-  {/* 
-      <div className="row-form">
-        <div className="row-line-block">
-          <div className="form-block-25">
-          <label>Тикер:</label>
-              <Select
-                className="form-select"
-                placeholder="Сбербанк(priv)"
-                onChange={callback}
-                options={options}
-                styles={customStyles}
-              />
-          </div>
-
-          
-        </div>
-      </div> */}
 
   let title = "Создание, редактирование событий/новостей";
  // var value = new Date().toISOString();
  
   return (
-    <ContentBox title={title}>
+    <ContentBox title={getTitle()}>
+ 
       <Form className="form-content">
+
+ 
       <div className="row-form">
           <div className="row-line-block">
               <div className="form-block-25">
@@ -118,18 +132,18 @@ const sendEvent = () => {
                 className="form-select"
                 placeholder="Что произошло?"
                 onChange={(value)=>news.changeTypeEvent( storeNew.id, value)}
-                options={eventsName}
-                styles={customStyles}
+                options={eventsName} 
               />
             </div>  
 
             <div className="form-block-25">
             <label>Дата события:</label>
               <DatePicker  
+              required={true}
               dateFormat='dd/MM/yyyy'
               onChange={date=>news.setDateEvent(storeNew.id, date)} 
               onSelect={handleDateSelect} //when day is clicked
-              selected={moment(storeNew.date, 'DD/MM/YYYY').toDate()  }  
+              selected={getDate()}  
               className="form-control"  />
             </div>
           </div>
@@ -138,12 +152,19 @@ const sendEvent = () => {
          <div className="row-form">
           <div className="form-block-100">
             <label>Короткое название:</label>
+ 
             <Form.Control
                 onChange={text => news.changeEventName(storeNew.id,text.target.value)} 
                 value={storeNew.title}
                 type="text" 
-                // isInvalid={true}
+                label="sdasd"
+                aria-errormessage="asdasd"
+                maxLength={256}
+                errormessage="sadasdsd"
+                 isInvalid={isInvalidTitle}
                placeholder="Сплит акций, выход отчётности за квартал, выплата девидендов" />
+
+  
           </div>
         </div> 
 
@@ -151,8 +172,11 @@ const sendEvent = () => {
           <div className="form-block-100">
             <label>Источник:</label>
             <Form.Control  
+              isInvalid={isInvalidSource}
+             
              onChange={text => news.changeEventSource(storeNew.id,text.target.value)} 
-             value={event.source} placeholder="http://" />
+             value={event.source} 
+             placeholder="http://" />
           </div>
         </div> 
  
@@ -160,6 +184,9 @@ const sendEvent = () => {
           <div className="form-block-100">
             <label>Короткое описание:</label>
             <Form.Control
+
+              isInvalid={isInvalidText}
+
               onChange={text => news.changeEventText(storeNew.id,text.target.value)} 
               value={event.text}
               as="textarea"
@@ -189,7 +216,7 @@ const sendEvent = () => {
                 resize: false,
                 branding: false,
                 plugins: [
-                  "advlist autolink linkcode paste wordcount",
+                  " wordcount",
                 ],
                 toolbar: "formatselect |  bold italic ",
                 content_style:
@@ -205,9 +232,13 @@ const sendEvent = () => {
           </div>
         </div>
       </Form>
+         
+
     </ContentBox>
   );
 }
 );
 // https://drive.google.com/drive/folders/102GkU_lXWxmWmonuF5kc2E5wS30Uw2VR
 export default Events;
+
+ 

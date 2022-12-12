@@ -26,7 +26,7 @@ class storeNews {
       url: "split-couple-actii",
       title_url: "split-acti",
       instrument: {
-        id: 1111,
+        instrumentId:  101,
         name: "Биткоин",
         price: 150,
         type: "crypto",
@@ -52,7 +52,7 @@ class storeNews {
       source: "https://ru.investing.com/analysis/article-200298747",
       title_url: "dividends",
       instrument: {
-        id: 1111,
+        instrumentId:  11111,
         name: "Биткоин",
         type: "crypto",
         ticker: "btc",
@@ -79,7 +79,7 @@ class storeNews {
       url: "full-down-ruble",
       title_url: "full-ruble",
       instrument: {
-        id: 1111,
+        instrumentId:  11411,
         name: "Биткоин",
         type: "crypto",
         ticker: "btc",
@@ -105,7 +105,7 @@ class storeNews {
       ticker: "btc",
       title_url: "kurs-ruble",
       instrument: {
-        id: 1111,
+        instrumentId: 1111,
         name: "Биткоин",
         type: "crypto",
         ticker: "btc",
@@ -124,8 +124,48 @@ class storeNews {
     },
   ];
 
+
+
+
+  default = {
+    event: "",
+    type: "",
+    typeId: 5,
+    hash: '',
+    ticker: "",
+    title_url: "",
+    instrument: {
+      instrumentId: 1111,
+      name: "Биткоин",
+      type: "crypto",
+      ticker: "btc",
+      price: 120,
+      change: "-10",
+      currency: "$",
+    },
+    date: "",
+    title: "",
+    source: "",
+    fulltext: "",
+    text: "",
+    link: "",
+  };
+  
+  getGefault(ticker) { 
+    return  this.eventNew =Object.assign({}, this.default );
+  }
+
+
   changeTypeEvent(id, value) {
     console.log(value);
+
+    if(id === undefined){
+         this.eventNew.typeId = value.value;
+          this.eventNew.event = value.label;
+          this.eventNew.type = value.type;
+      return this.eventNew;
+    }
+
     this.news.forEach((element) => {
       if (element.id === id) {
         element.typeId = value.value; 
@@ -137,6 +177,9 @@ class storeNews {
     this.eventNew.event = value.label;
     this.eventNew.type = value.type;
   }
+
+
+
   // обновляем дату при редактированиие события
   setDateEvent(id, date) {
     if(date){ 
@@ -150,9 +193,12 @@ class storeNews {
     }
   }
 
-  changeEventName(id, text) {
-    console.log(id, text);
-    console.log(this.news);
+  changeEventName(id, text) { 
+  //    if(element.id)
+    if(id === undefined){
+      this.eventNew.title = text;
+      return;
+    }
     this.news.forEach((element) => {
       if (element.id === id) {
         element.title = text;
@@ -163,6 +209,10 @@ class storeNews {
   }
 
   changeEventSource(id, text) {
+    if(id === undefined){
+      this.eventNew.source = text;
+      return;
+    }
     this.news.forEach((element) => {
       if (element.id === id) {
         element.source = text;
@@ -173,11 +223,16 @@ class storeNews {
   }
 
   changeEventText(id, text) {
+
+    if(id === undefined){
+      this.eventNew.text= text;
+      return;
+    }
+
     this.news.forEach((element) => {
       if (element.id === id) {
         element.text = text;
-        this.eventNew.text = text;
-        // element.date = moment( date).format("DD/MM/YYYY")
+        this.eventNew.text = text; 
       }
     });
   }
