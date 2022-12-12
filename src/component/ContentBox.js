@@ -30,6 +30,15 @@ function ContentBox({ content, children, ...params }) {
   if (params.hideBorder) {
     className += ' boxContent-hide';
   }
+
+  const getHead =()=>{ 
+    let result = ''; 
+      if(params.ticker || params.title){
+          result = <div className="titleClass"><h2> {params.ticker ? params.ticker + " : " : ""} {params.title}</h2></div>;
+      }
+      return result;
+  }
+
   
   return (
     <div>
@@ -43,11 +52,7 @@ function ContentBox({ content, children, ...params }) {
             <div className="blockHr"></div>
           </div>
           <div className="mainContent">
-            <div className="titleClass">
-              <h2>
-                {params.ticker ? params.ticker + " : " : ""} {params.title}
-              </h2>
-            </div>
+            {getHead()}
             <div className={className}>{children}</div>
           </div>
         </div>

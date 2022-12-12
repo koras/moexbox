@@ -17,7 +17,7 @@ function Menu() {
             <Link to="/dashboard">Анализировать</Link>
           </li>
           <li>
-            <Link to="/inspect/78e731027d8fd50ed642340b7c91111111">Модерировать</Link>
+            <Link to="/inspects">Модерировать</Link>
           </li>
         </ul> 
      </div> 

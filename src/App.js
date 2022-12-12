@@ -12,7 +12,8 @@ import Events from './pages/Events';
 import EventEdit from './pages/event/EventEdit';
 import EventEditComplete from './pages/event/EventEditComplete';
 import InspectEventShow from './pages/inspect/EventShow';
-
+import ListInspect from './pages/inspect/ListInspect';
+ 
 
  
 
@@ -40,15 +41,17 @@ function App() {
               <Route path="/" element={<Main />} />
               <Route path="/about" element={<About/>} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/inspect" element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard />} /> 
 
-              <Route path="/inspect/:hash" element={<InspectEventShow />} />
-
+              <Route path="/inspects" element={<ListInspect/>} />
+              <Route path="/inspect/:hash" element={<InspectEventShow />} /> 
+               
                
               <Route path="/events/:ticker/:url" element={<Events />} />
+              <Route path="/events/new/:ticker/" element={<EventEdit />} />
               <Route path="/events/edit/:ticker/:url" element={<EventEdit />} />
               <Route path="/checkevent/edit/:ticker/:url" element={<EventEdit />} />
+              
               <Route path="/checkevent/:ticker/:hash" element={<EventEditComplete />} />
 
              

@@ -134,6 +134,12 @@ class storeInstrument {
     });
     return event[0];
   }
+  getSingle(ticker) {
+    const event = this.instruments.filter((item) => {
+      return  item.ticker === ticker;
+    });
+    return event[0]?event[0]:{};
+  }
 
   getChart(ticker) {
     return {

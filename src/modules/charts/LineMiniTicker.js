@@ -12,11 +12,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
-
-//import { instrument } from "../../stories/storeInstrument";
-
-//import faker from 'faker';
-
+ 
 ChartJS.register(
   CategoryScale,
   LinearScale,
