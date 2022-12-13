@@ -11,6 +11,8 @@ import DatePicker from "react-datepicker";
 import Moment from "react-moment"; 
 import moment from 'moment';
 
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import "./../../App.css";
 import ContentBox from "./../../component/ContentBox"; 
 import Select from "react-select";
@@ -21,7 +23,7 @@ import { useNavigate,useParams  } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { news } from "./../../stories/storeNews";  
 import { instrument } from "./../../stories/storeInstrument";
-import { getByTitle } from "@testing-library/react";
+import { getByTitle } from "@testing-library/react"; 
 
 
 
@@ -53,6 +55,10 @@ export const  Events = observer( (  request ) => {
   const [isInvalidTitle, setIsInvalidTitle] = useState(false);
   const [isInvalidSource, setIsInvalidSource] = useState(false);
   const [isInvalidText, setIsInvalidText] = useState(false);
+
+ 
+
+
   console.log(ticker,url);
 
   if(url === undefined){
@@ -65,8 +71,7 @@ export const  Events = observer( (  request ) => {
 
 const handleDateSelect = (info) =>
 {
-  
-  
+
     console.log(info);
 }
 
@@ -75,14 +80,14 @@ const validation = () => {
   setIsInvalidTitle(false);
   setIsInvalidSource(false); 
   setIsInvalidText(false);
-  
-  if(news.eventNew.title.length < 10){ 
+  console.log(news.eventNew);
+  if(news.eventNew.title  === undefined|| news.eventNew.title.length < 10){ 
    setIsInvalidTitle(true);
   }
-  if(news.eventNew.source.length < 10){ 
+  if(news.eventNew.source  === undefined || news.eventNew.source.length < 10){ 
     setIsInvalidSource(true);
   }
-  if(news.eventNew.text.length < 10){ 
+  if(news.eventNew.text === undefined || news.eventNew.text.length < 10){ 
     setIsInvalidText(true);
   }
 
@@ -92,13 +97,11 @@ const validation = () => {
 
 
 const getDate = () => {
-    console.log('getDate',storeNew.date);
+ 
   if(storeNew.id){ 
     return moment(storeNew.date, 'DD/MM/YYYY').toDate()  ;
-    }
-    console.log(storeNew.date,moment(storeNew.date, 'DD/MM/YYYY').toDate());
+    } 
     if(news.eventDate ===''){ 
-      console.log('======')
       return moment().toDate()  ;
     }else{
       return moment(news.eventDate, 'DD/MM/YYYY').toDate()  ;
@@ -106,10 +109,12 @@ const getDate = () => {
 }
  
 const sendEvent = () => {
+  
   if(news.eventNew.id === undefined){
     news.eventNew.date = news.eventDate
   }
-   
+  console.log(news.eventNew);
+  setOpen(true)
   news.eventNew.ticker = ticker;
  
   if(validation()){
@@ -138,42 +143,45 @@ const getType = (item) => {
     })
   }
 };
-
-
-const setDateEvent = (id, date)=> {
-  console.log(id, date);
-  if(id){ 
-  console.log(date);
-    news.setDateEvent(storeNew.id, date)
-  }else{
-    console.log(moment(news.eventDate, 'DD/MM/YYYY').format("DD/MM/YYYY"))
-    storeNew.date = moment(news.eventDate, 'DD/MM/YYYY').format("DD/MM/YYYY");
-
-  }
-};
-
-
  
- 
- 
+const getValidateType= (item) => {
+ return  +storeNew.typeId !==0;
+}
 
-  let title = "Создание, редактирование событий/новостей";
- // var value = new Date().toISOString();
- 
+const [open, setOpen] = useState(false);
+const closeModal = () => setOpen(false);
+
   return (
     <ContentBox title={getTitle()}>
- 
-      <Form className="form-content">
+      <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+        <div className="modal">
+          <a className="close" onClick={closeModal}>
+            &times;
+          </a>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni
+          omnis delectus nemo, maxime molestiae dolorem numquam mollitia, voluptate
+          ea, accusamus excepturi deleniti ratione sapiente! Laudantium, aperiam
+          doloribus. Odit, aut.
+        </div>
+      </Popup>
 
- 
+
+      <Form className="form-content">
       <div className="row-form">
           <div className="row-line-block">
               <div className="form-block-25">
               <label>Событие:</label>{storeNew.value}
+
               <Select
+               styles={{
+                control: (baseStyles, state) => ({
+                  ...baseStyles,
+                  borderColor: getValidateType() ? 'grey' : 'red',
+                }),
+              }} 
                 defaultValue={getType()}
                 value={getType()}
-                className="form-select"
+                className="form-select react-select"
                 placeholder="Что произошло?"
                 onChange={(value)=>news.changeTypeEvent( storeNew.id, value)}
                 options={eventsName} 
@@ -217,7 +225,6 @@ const setDateEvent = (id, date)=> {
             <label>Источник:</label>
             <Form.Control  
               isInvalid={isInvalidSource}
-             
              onChange={text => news.changeEventSource(storeNew.id,text.target.value)} 
              value={event.source} 
              placeholder="http://" />
