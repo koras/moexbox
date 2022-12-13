@@ -27,7 +27,9 @@ import { getByTitle } from "@testing-library/react";
 
 export const  Events = observer( (  request ) => {
 
-  let  storeNew = {};
+  let  storeNew = {
+    date: moment().format("DD/MM/YYYY")
+  };
   let { ticker,url } = useParams(); 
   const navigate = useNavigate();
  
@@ -63,6 +65,8 @@ export const  Events = observer( (  request ) => {
 
 const handleDateSelect = (info) =>
 {
+  
+  
     console.log(info);
 }
 
@@ -88,25 +92,38 @@ const validation = () => {
 
 
 const getDate = () => {
-  if(storeNew.date){ 
+    console.log('getDate',storeNew.date);
+  if(storeNew.id){ 
     return moment(storeNew.date, 'DD/MM/YYYY').toDate()  ;
     }
-    return moment().toDate()  ;
+    console.log(storeNew.date,moment(storeNew.date, 'DD/MM/YYYY').toDate());
+    if(news.eventDate ===''){ 
+      console.log('======')
+      return moment().toDate()  ;
+    }else{
+      return moment(news.eventDate, 'DD/MM/YYYY').toDate()  ;
+    }
 }
  
 const sendEvent = () => {
-
-  console.log('sendEvent',news.eventNew)
-
-  return;
+  if(news.eventNew.id === undefined){
+    news.eventNew.date = news.eventDate
+  }
+   
+  news.eventNew.ticker = ticker;
+ 
   if(validation()){
     const hash = news.saveEvent(news.eventNew);
+ 
+    console.log('sendEvent',news.eventNew,hash)
+    return;
+
     navigate("/checkevent/"+news.eventNew.ticker+'/'+hash);
   }
 };
 const getTitle = () => {
   console.log('sendEvent')
-  if(storeNew.date){ 
+  if(storeNew.id){ 
     return storeNew.instrument.name + " : Редактирование событий/новостей";
   }
   return storeNew.instrument.name + " : Добавление события";
@@ -121,6 +138,22 @@ const getType = (item) => {
     })
   }
 };
+
+
+const setDateEvent = (id, date)=> {
+  console.log(id, date);
+  if(id){ 
+  console.log(date);
+    news.setDateEvent(storeNew.id, date)
+  }else{
+    console.log(moment(news.eventDate, 'DD/MM/YYYY').format("DD/MM/YYYY"))
+    storeNew.date = moment(news.eventDate, 'DD/MM/YYYY').format("DD/MM/YYYY");
+
+  }
+};
+
+
+ 
  
  
 
@@ -213,7 +246,6 @@ const getType = (item) => {
 
             <Editor
               apiKey="5kp3x2dadjoph5cgpy61s3ha1kl7h6fvl501s3qidoyb4k6u"
-             
               initialValue={storeNew.fulltext}
                onEditorChange={text => news.changeEventFulltext(text)} 
               placeholder="Подробная новость или событие"

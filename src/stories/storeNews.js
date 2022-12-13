@@ -11,9 +11,7 @@ let md5 = require('md5');
 class storeNews {
   constructor() {
     makeAutoObservable(this);
-  }
-  // объект для редактирования
-  eventNew = {};
+  } 
 
   news = [
     {
@@ -125,7 +123,7 @@ class storeNews {
   ];
 
 
-
+  eventDate = '';
 
   default = {
     event: "",
@@ -150,6 +148,9 @@ class storeNews {
     text: "",
     link: "",
   };
+  
+  // объект для редактирования
+  eventNew = {};
   
   getGefault(ticker) { 
    this.eventNew = Object.assign({}, this.default );
@@ -184,7 +185,8 @@ class storeNews {
 
   // обновляем дату при редактированиие события
   setDateEvent(id, date) {
-    if(date){ 
+    console.log(id, date);
+    if(id){ 
     console.log(date);
       this.news.forEach((element) => {
         if (element.id === id) {
@@ -192,8 +194,18 @@ class storeNews {
           this.eventNew.date = moment(date).format("DD/MM/YYYY");
         }
       });
+    }else{
+       this.eventDate = moment(date).format("DD/MM/YYYY");
     }
+  }// обновляем дату при редактированиие события
+
+  getDateNew() {
+    if(this.eventNew && this.eventNew.date){
+     return this.eventNew.date
+    } 
   }
+
+
 
   changeEventName(id, text) { 
   //    if(element.id)
@@ -260,7 +272,7 @@ class storeNews {
 
   getNew(ticker, url) {
     // сперва пытаемся получить новость по хэшу
-    const event = this.news.filter((item) => {
+    const event  = this.news.filter((item) => {
       return item.url === url && item.ticker === ticker ||  item.hash === url && item.ticker === ticker ;
     });
     this.eventNew = Object.assign({}, event[0]);
