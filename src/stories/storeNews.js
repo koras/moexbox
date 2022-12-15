@@ -186,8 +186,10 @@ class storeNews {
   // обновляем дату при редактированиие события
   setDateEvent(id, date) {
     console.log(id, date);
-    if(id){ 
+    if(id && date){ 
     console.log(date);
+    
+    
       this.news.forEach((element) => {
         if (element.id === id) {
           element.date = moment(date).format("DD/MM/YYYY");
@@ -198,6 +200,9 @@ class storeNews {
        this.eventDate = moment(date).format("DD/MM/YYYY");
     }
   }// обновляем дату при редактированиие события
+
+
+
 
   getDateNew() {
     if(this.eventNew && this.eventNew.date){
@@ -257,7 +262,7 @@ class storeNews {
 
   // сохраняем событие
   saveEvent=()=> {
-    console.log( this.eventNew);
+  //  console.log( this.eventNew);
     return this.eventNew.hash;
    return md5(this.eventNew.text +  Math.floor(Math.random()));
   }

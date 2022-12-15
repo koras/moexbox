@@ -17,6 +17,7 @@ import "./../../App.css";
 import ContentBox from "./../../component/ContentBox"; 
 import Select from "react-select";
 import "./../stylePages.css";
+// https://codesandbox.io/s/tinymcereact-focus-and-blur-xttdu
 import { Editor } from "@tinymce/tinymce-react";
 import { eventsName } from "./../../constants/general";
 import { useNavigate,useParams  } from "react-router-dom";
@@ -55,15 +56,17 @@ export const  Events = observer( (  request ) => {
   const [isInvalidTitle, setIsInvalidTitle] = useState(false);
   const [isInvalidSource, setIsInvalidSource] = useState(false);
   const [isInvalidText, setIsInvalidText] = useState(false);
-
+  const [writeForm, setWriteForm] = useState(false);
+  const [errorFulltext, setErrorFulltext] = useState(false);
+   
  
+  const editorRef = useRef('chart');
 
-
-  console.log(ticker,url);
+  //console.log(ticker,url);
 
   if(url === undefined){
     storeNew.instrument = instrument.getSingle(ticker);
-    console.log( storeNew );
+   // console.log( storeNew );
   }else{
     storeNew = news.getNew(ticker,url); 
   }
@@ -72,24 +75,34 @@ export const  Events = observer( (  request ) => {
 const handleDateSelect = (info) =>
 {
 
-    console.log(info);
+  //  console.log(info);
 }
 
 // ПРоверяем условия
 const validation = () => {
+ 
+  setWriteForm(true);
   setIsInvalidTitle(false);
   setIsInvalidSource(false); 
   setIsInvalidText(false);
-  console.log(news.eventNew);
+
+  //console.log(news.eventNew);
   if(news.eventNew.title  === undefined|| news.eventNew.title.length < 10){ 
    setIsInvalidTitle(true);
   }
   if(news.eventNew.source  === undefined || news.eventNew.source.length < 10){ 
     setIsInvalidSource(true);
-  }
+  } 
   if(news.eventNew.text === undefined || news.eventNew.text.length < 10){ 
     setIsInvalidText(true);
   }
+  if( news.eventNew.fulltext === undefined || news.eventNew.fulltext.length < 190){ 
+    console.log('trurrrrr');
+    setErrorFulltext(true);
+  }
+
+  
+
 
   return !(isInvalidTitle && isInvalidSource && isInvalidText);
 
@@ -114,20 +127,22 @@ const sendEvent = () => {
     news.eventNew.date = news.eventDate
   }
   console.log(news.eventNew);
-  setOpen(true)
+ 
   news.eventNew.ticker = ticker;
  
   if(validation()){
     const hash = news.saveEvent(news.eventNew);
  
-    console.log('sendEvent',news.eventNew,hash)
+    //console.log('sendEvent',news.eventNew,hash)
+   // return;
+    setOpen(true)
     return;
-
     navigate("/checkevent/"+news.eventNew.ticker+'/'+hash);
   }
 };
 const getTitle = () => {
-  console.log('sendEvent')
+
+ // console.log('sendEvent')
   if(storeNew.id){ 
     return storeNew.instrument.name + " : Редактирование событий/новостей";
   }
@@ -136,20 +151,49 @@ const getTitle = () => {
  
  
 const getType = (item) => {
-  if(storeNew.id){ 
-    console.log('getType',item,storeNew.typeId)
+  if(storeNew.id){  
       return   eventsName.filter(function(option) {
       return option.value === +storeNew.typeId;
     })
   }
 };
+
  
-const getValidateType= (item) => {
- return  +storeNew.typeId !==0;
+ 
+const getValidateType= () => {
+  if(!writeForm){
+    return true;
+  }
+ // console.log(news.eventNew.typeId);
+  if(news.eventNew.typeId){ 
+    return true;
+  }
+  return false; 
+// return  news.storeNew.typeId !==0;
 }
 
 const [open, setOpen] = useState(false);
 const closeModal = () => setOpen(false);
+
+
+const handleEditorChange = (content, editor) => {
+  //console.log("Content was updated:", content);
+  if(!writeForm){
+    return true;
+  }
+
+  const element = editor.getContainer();
+ 
+  if (element) {
+      if(content.length < 200){ 
+          element.style.border = "1px solid red";
+      }else{
+          element.style.border = "1px solid #ced4da";
+      }
+    }
+  
+};
+
 
   return (
     <ContentBox title={getTitle()}>
@@ -176,7 +220,7 @@ const closeModal = () => setOpen(false);
                styles={{
                 control: (baseStyles, state) => ({
                   ...baseStyles,
-                  borderColor: getValidateType() ? 'grey' : 'red',
+                  borderColor: getValidateType() ? '#ced4da' : 'red',
                 }),
               }} 
                 defaultValue={getType()}
@@ -191,6 +235,7 @@ const closeModal = () => setOpen(false);
             <div className="form-block-25">
             <label>Дата события:</label>
               <DatePicker  
+              title='asd'
               required={true}
               dateFormat='dd/MM/yyyy'
               onChange={date=>news.setDateEvent(storeNew.id, date)} 
@@ -254,7 +299,14 @@ const closeModal = () => setOpen(false);
             <Editor
               apiKey="5kp3x2dadjoph5cgpy61s3ha1kl7h6fvl501s3qidoyb4k6u"
               initialValue={storeNew.fulltext}
-               onEditorChange={text => news.changeEventFulltext(text)} 
+              onEditorChange={text => news.changeEventFulltext(text)}
+
+
+
+              onInit={(evt, editor) => editorRef.current = editor} 
+
+
+
               placeholder="Подробная новость или событие"
               init={{
                 extended_valid_elements: "br[*],p,b,",
@@ -272,7 +324,35 @@ const closeModal = () => setOpen(false);
                 content_style:
                   "body {  font-size:17px }",
                 paste_as_text: true,
+                setup: (editor) => {
+
+                  // editor.on("focus", function (e) {
+                  //   const element = editor.getContainer();
+                  //   if (element) {
+                  //     element.style.border = "1px solid red";
+                  //   }
+                  // });
+                  // editor.on("blur", function (e) {
+                  //   const element = editor.getContainer();
+                  //   if (element) {
+                  //     element.style.border = "1px solid green";
+                  //   }
+                  // });
+                  editor.on("click",   (e) =>{
+                    const element = editor.getContainer();
+                    console.log(errorFulltext);
+                    if (element) {
+                      console.log('33333')
+                      if (errorFulltext) {
+                        element.style.border = "1px solid green";
+                      }
+                    }
+                  });
+
+
+                }
               }}
+              onEditorChange={handleEditorChange}
             />
           </div>
         </div>   
