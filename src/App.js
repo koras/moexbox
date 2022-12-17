@@ -42,11 +42,8 @@ function App() {
               <Route path="/about" element={<About/>} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/dashboard" element={<Dashboard />} /> 
-
               <Route path="/inspects" element={<ListInspect/>} />
               <Route path="/inspect/:hash" element={<InspectEventShow />} /> 
-               
-               
               <Route path="/events/:ticker/:url" element={<Events />} />
               <Route path="/events/new/:ticker/" element={<EventEdit />} />
               <Route path="/events/edit/:ticker/:url" element={<EventEdit />} />

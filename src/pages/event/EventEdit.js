@@ -1,6 +1,6 @@
  
 // https://react-bootstrap-v4.netlify.app/getting-started/introduction/
-import React, { useRef,useState } from "react";
+import React, { useEffect, useRef,useState } from "react";
 import { observer } from "mobx-react-lite";
 // https://reactrouter.com/en/main/hooks/use-params
 import Form from "react-bootstrap/Form";
@@ -26,6 +26,8 @@ import { news } from "./../../stories/storeNews";
 import { instrument } from "./../../stories/storeInstrument";
 import { getByTitle } from "@testing-library/react"; 
 
+
+import AddEvent  from "./../../component/modals/addEvent";
 
 
 export const  Events = observer( (  request ) => {
@@ -58,6 +60,7 @@ export const  Events = observer( (  request ) => {
   const [isInvalidText, setIsInvalidText] = useState(false);
   const [writeForm, setWriteForm] = useState(false);
   const [errorFulltext, setErrorFulltext] = useState(false);
+  const [showSendButton, setShowSendButton] = useState(true);
    
  
   const editorRef = useRef('chart');
@@ -96,15 +99,17 @@ const validation = () => {
   if(news.eventNew.text === undefined || news.eventNew.text.length < 10){ 
     setIsInvalidText(true);
   }
+  console.log(news.eventNew.fulltext);
   if( news.eventNew.fulltext === undefined || news.eventNew.fulltext.length < 190){ 
     console.log('trurrrrr');
     setErrorFulltext(true);
   }
+  if(!(isInvalidTitle && isInvalidSource && isInvalidText)){ 
+    setShowSendButton(false);
+    return true;
+  }
 
-  
-
-
-  return !(isInvalidTitle && isInvalidSource && isInvalidText);
+ return false;
 
 };
 
@@ -136,8 +141,8 @@ const sendEvent = () => {
     //console.log('sendEvent',news.eventNew,hash)
    // return;
     setOpen(true)
-    return;
-    navigate("/checkevent/"+news.eventNew.ticker+'/'+hash);
+ 
+  //  navigate("/checkevent/"+news.eventNew.ticker+'/'+hash);
   }
 };
 const getTitle = () => {
@@ -173,12 +178,18 @@ const getValidateType= () => {
 }
 
 const [open, setOpen] = useState(false);
-const closeModal = () => setOpen(false);
+
+const closeModal = () => {
+
+  setOpen(false)
+
+};
 
 
 const handleEditorChange = (content, editor) => {
-  //console.log("Content was updated:", content);
+//  console.log("Content was updated:", content);
   if(!writeForm){
+   // console.log("1111Content was updated:", content);
     return true;
   }
 
@@ -194,22 +205,22 @@ const handleEditorChange = (content, editor) => {
   
 };
 
+const getButton=()=>{
+  if(showSendButton){ 
+   return  <button type="button"  onClick={sendEvent} className="btn btn-primary">{textButton()}</button>
+  }
 
+    return ; 
+}
+
+// closeOnDocumentClick 
   return (
     <ContentBox title={getTitle()}>
-      <Popup open={open} closeOnDocumentClick onClose={closeModal}>
-        <div className="modal">
-          <a className="close" onClick={closeModal}>
-            &times;
-          </a>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni
-          omnis delectus nemo, maxime molestiae dolorem numquam mollitia, voluptate
-          ea, accusamus excepturi deleniti ratione sapiente! Laudantium, aperiam
-          doloribus. Odit, aut.
-        </div>
+      <Popup open={open}  
+      closeOnDocumentClick={false}
+      onClose={closeModal}>
+        <AddEvent ticker={ticker} />
       </Popup>
-
-
       <Form className="form-content">
       <div className="row-form">
           <div className="row-line-block">
@@ -325,19 +336,6 @@ const handleEditorChange = (content, editor) => {
                   "body {  font-size:17px }",
                 paste_as_text: true,
                 setup: (editor) => {
-
-                  // editor.on("focus", function (e) {
-                  //   const element = editor.getContainer();
-                  //   if (element) {
-                  //     element.style.border = "1px solid red";
-                  //   }
-                  // });
-                  // editor.on("blur", function (e) {
-                  //   const element = editor.getContainer();
-                  //   if (element) {
-                  //     element.style.border = "1px solid green";
-                  //   }
-                  // });
                   editor.on("click",   (e) =>{
                     const element = editor.getContainer();
                     console.log(errorFulltext);
@@ -358,12 +356,10 @@ const handleEditorChange = (content, editor) => {
         </div>   
         <div className="row-form">
           <div className="form-block-100 button-right">
-            <button type="button"  onClick={sendEvent} className="btn btn-primary">{textButton()}</button>
+           {getButton()}
           </div>
         </div>
-      </Form>
-         
-
+      </Form> 
     </ContentBox>
   );
 }
