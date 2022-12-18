@@ -31,12 +31,12 @@ export const LKHeader =() => {
  });
 
    const onSuccess = (res) => {
-    console.log('onSuccess', res);
+  //  console.log('onSuccess', res);
         setProfile(res.profileObj);
     };
 
     const onFailure = (err) => {
-        console.log('failed', err);
+      //  console.log('failed', err);
     };
 
     const logOut = () => {
@@ -119,14 +119,6 @@ return (
  
 )
 
- 
-  return ( 
-    <div className="header-box-lk"> 
-      <div className="header-box-lk__light">  
-          <div className="header-box-lk__input">Личный кабинет</div>
-      </div> 
-     </div> 
-  );
 }
 
 export default LKHeader;

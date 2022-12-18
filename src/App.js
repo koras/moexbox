@@ -16,12 +16,7 @@ import EventEdit from './pages/event/EventEdit';
 import EventEditComplete from './pages/event/EventEditComplete';
 import InspectEventShow from './pages/inspect/EventShow';
 import ListInspect from './pages/inspect/ListInspect';
- 
-
- 
-
- 
- 
+  
 import {
   BrowserRouter as Router,
  // Switch,
@@ -33,7 +28,30 @@ import {
 
 import './App.css';
  
-
+// export const RoutesData = [
+//   { key: "index", path: "/", element: <Main /> },
+//   { key: "about", path: "/about", element: <About /> },
+//   { key: "contact", path: "/contact", element: <Contact /> },
+//   { key: "dashboard", path: "/dashboard", element: <Dashboard /> },
+//   { key: "inspect", path: "/inspects", element: <ListInspect /> },
+//   { key: "inspect", path: "/inspect/:hash", element: <InspectEventShow /> },
+//   { key: "events", path: "/events/:ticker/:url", element: <Events /> },
+//   { key: "events", path: "/events/new/:ticker/", element: <EventEdit /> },
+//   { key: "events", path: "/events/edit/:ticker/:url", element: <EventEdit /> },
+//   {
+//     key: "events",
+//     path: "/checkevent/edit/:ticker/:url",
+//     element: <EventEdit />,
+//   },
+//   {
+//     key: "events",
+//     path: "/checkevent/:ticker/:hash",
+//     element: <EventEditComplete />,
+//   },
+//   { key: "profile", path: "/profile", element: <Profile /> },
+//   { key: "events", path: "/crypto/:ticker", element: <ChartTicker /> },
+//   { key: "notFound", path: "*", element: <NotFound /> },
+// ];
 //const root = ReactDOM.createRoot(mountNode);
 
 function App() {
@@ -41,23 +59,20 @@ function App() {
     <div className="App">
       <Router>
           <Routes>
-              <Route path="/" element={<Main />} />
-              <Route path="/about" element={<About/>} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/dashboard" element={<Dashboard />} /> 
-              <Route path="/inspects" element={<ListInspect/>} />
-              <Route path="/inspect/:hash" element={<InspectEventShow />} /> 
-              <Route path="/events/:ticker/:url" element={<Events />} />
-              <Route path="/events/new/:ticker/" element={<EventEdit />} />
-              <Route path="/events/edit/:ticker/:url" element={<EventEdit />} />
-              <Route path="/checkevent/edit/:ticker/:url" element={<EventEdit />} />
-              
-              <Route path="/checkevent/:ticker/:hash" element={<EventEditComplete />} />
-
-               
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/crypto/:ticker" element={<ChartTicker />} />
-              <Route path="*" element={<NotFound />} />
+              <Route basename='index' path="/" element={<Main />} />
+              <Route basename='about' path="/about" element={<About/>} />
+              <Route basename='contact' path="/contact" element={<Contact />} />
+              <Route basename='dashboard' path="/dashboard" element={<Dashboard />} /> 
+              <Route basename='inspect' path="/inspects" element={<ListInspect/>} />
+              <Route basename='inspect' path="/inspect/:hash" element={<InspectEventShow />} /> 
+              <Route basename='events' path="/events/:ticker/:url" element={<Events />} />
+              <Route basename='events' path="/events/new/:ticker/" element={<EventEdit />} />
+              <Route basename='events' path="/events/edit/:ticker/:url" element={<EventEdit />} />
+              <Route basename='events' path="/checkevent/edit/:ticker/:url" element={<EventEdit />} />
+              <Route basename='events' path="/checkevent/:ticker/:hash" element={<EventEditComplete />} />
+              <Route basename='profile' path="/profile" element={<Profile />} />
+              <Route basename='events' path="/crypto/:ticker" element={<ChartTicker />} />
+              <Route  basename='notfound'  path="*" element={<NotFound />} />
           </Routes>
       </Router>
     </div>
