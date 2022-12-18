@@ -1,7 +1,7 @@
 import "./../../App.css";
 import ContentBox from "./../../component/ContentBox";
 
-import { useNavigate} from "react-router-dom"; 
+//import { useNavigate} from "react-router-dom"; 
 
 import { newsInspect } from "./../../stories/storeNewsInspect";
 //import parse from "html-react-parser";
@@ -15,20 +15,8 @@ import "./../stylePages.css";
 
 
 function ListInspect() {
-  const navigate = useNavigate();
-
 
   const instruments = newsInspect.getAll();
-
-
-
-  const goInspect = (item) =>{
-      console.log(item.hash)
-      navigate("/inspect/" + item.hash);
-
-  }
-
-
 
   const ObjectRow = (props) => {
     const instrument = props.item.instrument;

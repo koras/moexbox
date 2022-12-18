@@ -1,6 +1,6 @@
  
 // https://react-bootstrap-v4.netlify.app/getting-started/introduction/
-import React, { useEffect, useRef,useState } from "react";
+import React, {  useRef,useState } from "react";
 import { observer } from "mobx-react-lite";
 // https://reactrouter.com/en/main/hooks/use-params
 import Form from "react-bootstrap/Form";
@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-datepicker/dist/react-datepicker.css";
 //https://www.npmjs.com/package/react-datepicker
 import DatePicker from "react-datepicker"; 
-import Moment from "react-moment"; 
+//import Moment from "react-moment"; 
 import moment from 'moment';
 
 import Popup from 'reactjs-popup';
@@ -20,41 +20,29 @@ import "./../stylePages.css";
 // https://codesandbox.io/s/tinymcereact-focus-and-blur-xttdu
 import { Editor } from "@tinymce/tinymce-react";
 import { eventsName } from "./../../constants/general";
-import { useNavigate,useParams  } from "react-router-dom";
-import { createBrowserHistory } from "history";
+import { useParams  } from "react-router-dom";
 import { news } from "./../../stories/storeNews";  
 import { instrument } from "./../../stories/storeInstrument";
-import { getByTitle } from "@testing-library/react"; 
 
 
 import AddEvent  from "./../../component/modals/addEvent";
 
 
 export const  Events = observer( (  request ) => {
+ 
+  console.log('111111111111111111');
+
 
   let  storeNew = {
     date: moment().format("DD/MM/YYYY")
   };
   let { ticker,url } = useParams(); 
-  const navigate = useNavigate();
+ // const navigate = useNavigate(); 
  
-  const changeTypeEvent = (value) => {
-    news.changeTypeEvent( storeNew.id, value)
-  };
-
- 
-
   const textButton = ()=>{
     return 'Предложить изменение'; 
   }
 
-  const options = [
-    { value: "blues", label: "Blues" },
-    { value: "rock", label: "Rock" },
-    { value: "jazz", label: "Jazz" },
-    { value: "orchestra", label: "Orchestra" },
-  ];
-  const [isOpen, setIsOpen] = useState(false);
   const [isInvalidTitle, setIsInvalidTitle] = useState(false);
   const [isInvalidSource, setIsInvalidSource] = useState(false);
   const [isInvalidText, setIsInvalidText] = useState(false);
@@ -64,10 +52,11 @@ export const  Events = observer( (  request ) => {
    
  
   const editorRef = useRef('chart');
-
+   
   //console.log(ticker,url);
 
   if(url === undefined){
+  //  news.eventNew.getGefault(ticker)
     storeNew.instrument = instrument.getSingle(ticker);
    // console.log( storeNew );
   }else{
@@ -89,23 +78,45 @@ const validation = () => {
   setIsInvalidSource(false); 
   setIsInvalidText(false);
 
-  //console.log(news.eventNew);
-  if(news.eventNew.title  === undefined|| news.eventNew.title.length < 10){ 
+  
+  let isInvalidTitle = true;
+  let isInvalidSource = true;
+  let isInvalidText = true;
+  let isInvalidFulltext = true;
+
+  
+  if(!news.eventNew.title  || (news.eventNew.title  && news.eventNew.title.length < 10)){ 
+  
    setIsInvalidTitle(true);
+   isInvalidTitle = false;
   }
-  if(news.eventNew.source  === undefined || news.eventNew.source.length < 10){ 
+
+  if(!news.eventNew.source  || (news.eventNew.source  && news.eventNew.source.length < 10)){ 
+
+
+    isInvalidSource = false;
     setIsInvalidSource(true);
   } 
-  if(news.eventNew.text === undefined || news.eventNew.text.length < 10){ 
+  if(!news.eventNew.text || (news.eventNew.text && news.eventNew.text.length < 10)){ 
     setIsInvalidText(true);
+    isInvalidText = false;
   }
-  console.log(news.eventNew.fulltext);
-  if( news.eventNew.fulltext === undefined || news.eventNew.fulltext.length < 190){ 
-    console.log('trurrrrr');
+  console.log(news.eventNew.fulltext,!news.eventNew.fulltext);
+  if( !news.eventNew.fulltext || (news.eventNew.fulltext && news.eventNew.fulltext.length < 190)){ 
+    isInvalidFulltext = false;
     setErrorFulltext(true);
   }
-  if(!(isInvalidTitle && isInvalidSource && isInvalidText)){ 
+
+  if(isInvalidTitle && isInvalidSource && isInvalidText && isInvalidFulltext){ 
     setShowSendButton(false);
+
+    news.changeTypeEvent( storeNew.id, {});
+    news.setDateEvent(storeNew.id, moment().toDate())
+    console.log(news.eventNew);
+    news.eventNew.fulltext =''
+    news.eventNew.text =''
+    news.eventNew.source = ''
+    news.eventNew.title = ''
     return true;
   }
 
@@ -136,14 +147,15 @@ const sendEvent = () => {
   news.eventNew.ticker = ticker;
  
   if(validation()){
-    const hash = news.saveEvent(news.eventNew);
+ //   const hash = news.saveEvent(news.eventNew);
  
     //console.log('sendEvent',news.eventNew,hash)
    // return;
-    setOpen(true)
- 
+    setOpen(true) 
   //  navigate("/checkevent/"+news.eventNew.ticker+'/'+hash);
   }
+
+
 };
 const getTitle = () => {
 
@@ -155,7 +167,7 @@ const getTitle = () => {
 };
  
  
-const getType = (item) => {
+const getType = () => {
   if(storeNew.id){  
       return   eventsName.filter(function(option) {
       return option.value === +storeNew.typeId;
@@ -187,6 +199,8 @@ const closeModal = () => {
 
 
 const handleEditorChange = (content, editor) => {
+//  onEditorChange={text => news.changeEventFulltext(text)}
+  news.changeEventFulltext(content);
 //  console.log("Content was updated:", content);
   if(!writeForm){
    // console.log("1111Content was updated:", content);
@@ -219,7 +233,7 @@ const getButton=()=>{
       <Popup open={open}  
       closeOnDocumentClick={false}
       onClose={closeModal}>
-        <AddEvent ticker={ticker} />
+        <AddEvent instrument={storeNew.instrument} />
       </Popup>
       <Form className="form-content">
       <div className="row-form">
@@ -310,7 +324,7 @@ const getButton=()=>{
             <Editor
               apiKey="5kp3x2dadjoph5cgpy61s3ha1kl7h6fvl501s3qidoyb4k6u"
               initialValue={storeNew.fulltext}
-              onEditorChange={text => news.changeEventFulltext(text)}
+             
 
 
 
@@ -338,9 +352,8 @@ const getButton=()=>{
                 setup: (editor) => {
                   editor.on("click",   (e) =>{
                     const element = editor.getContainer();
-                    console.log(errorFulltext);
-                    if (element) {
-                      console.log('33333')
+         
+                    if (element) { 
                       if (errorFulltext) {
                         element.style.border = "1px solid green";
                       }

@@ -7,7 +7,7 @@ import { makeAutoObservable } from "mobx";
 import moment from "moment";
 
 //import _ from "lodash";
-let md5 = require('md5');
+//let md5 = require('md5');
 class storeNews {
   constructor() {
     makeAutoObservable(this);
@@ -152,6 +152,9 @@ class storeNews {
   // объект для редактирования
   eventNew = {};
   
+ 
+
+
   getGefault(ticker) { 
    this.eventNew = Object.assign({}, this.default );
     return  this.eventNew  ;
@@ -264,7 +267,7 @@ class storeNews {
   saveEvent=()=> {
   //  console.log( this.eventNew);
     return this.eventNew.hash;
-   return md5(this.eventNew.text +  Math.floor(Math.random()));
+   //return md5(this.eventNew.text +  Math.floor(Math.random()));
   }
   getInspectEvent(hash){
     // сперва пытаемся получить новость по хэшу
@@ -278,7 +281,7 @@ class storeNews {
   getNew(ticker, url) {
     // сперва пытаемся получить новость по хэшу
     const event  = this.news.filter((item) => {
-      return item.url === url && item.ticker === ticker ||  item.hash === url && item.ticker === ticker ;
+      return (item.url === url && item.ticker === ticker) ||  (item.hash === url && item.ticker === ticker) ;
     });
     this.eventNew = Object.assign({}, event[0]);
     return event[0];

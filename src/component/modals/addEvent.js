@@ -1,27 +1,18 @@
-import { Link } from "react-router-dom";
-import { useNavigate,useParams  } from "react-router-dom";
-
+ 
+import { useNavigate } from "react-router-dom";
 
 import "./modal.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-
-
-  export const AddEvent = (props) => {
+export const AddEvent = (props) => {
   const navigate = useNavigate();
 
-  const textButton = () => {
-    return ''
-  };
-  const toInstrument = () => {
-    navigate("/checkevent/"+news.eventNew.ticker+'/'+hash);
-     //props.ticker
-    return ''
-  };
  
-  const sendEvent = () => {
-     
+  const toInstrument = () => {
+    navigate("/" + props.instrument.type + "/" + props.instrument.ticker);
   };
+
+  const sendEvent = () => {};
 
   return (
     <div className="form-modal">
@@ -45,12 +36,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
         <button type="button" onClick={sendEvent} className="btn btn-primary">
           Отредактировать событие
         </button>
-        <button type="button" onClick={toInstrument} className="btn btn-primary">
+        <button
+          type="button"
+          onClick={toInstrument}
+          className="btn btn-primary"
+        >
           К инструменту
         </button>
       </div>
     </div>
   );
-}; 
+};
 
 export default AddEvent;
