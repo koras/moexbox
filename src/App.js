@@ -8,6 +8,9 @@ import Contact from './pages/Contact';
 //import Chart from './pages/Chart';
 import ChartTicker from './pages/ChartTicker';
 import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
+
+ 
 import Events from './pages/Events';
 import EventEdit from './pages/event/EventEdit';
 import EventEditComplete from './pages/event/EventEditComplete';
@@ -51,7 +54,8 @@ function App() {
               
               <Route path="/checkevent/:ticker/:hash" element={<EventEditComplete />} />
 
-             
+               
+              <Route path="/profile" element={<Profile />} />
               <Route path="/crypto/:ticker" element={<ChartTicker />} />
               <Route path="*" element={<NotFound />} />
           </Routes>
