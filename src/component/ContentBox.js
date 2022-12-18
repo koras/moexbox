@@ -25,21 +25,26 @@ const menuClass = {
 };
 
 function ContentBox({ content, children, ...params }) {
-
-  let className = 'boxContent';
+  let className = "boxContent";
   if (params.hideBorder) {
-    className += ' boxContent-hide';
+    className += " boxContent-hide";
   }
 
-  const getHead =()=>{ 
-    let result = ''; 
-      if(params.ticker || params.title){
-          result = <div className="titleClass"><h2> {params.ticker ? params.ticker + " : " : ""} {params.title}</h2></div>;
-      }
-      return result;
-  }
+  const getHead = () => {
+    let result = "";
+    if (params.ticker || params.title) {
+      result = (
+        <div className="titleClass">
+          <h2>
+            {" "}
+            {params.ticker ? params.ticker + " : " : ""} {params.title}
+          </h2>
+        </div>
+      );
+    }
+    return result;
+  };
 
-  
   return (
     <div>
       <div className="headerClass">
@@ -55,6 +60,13 @@ function ContentBox({ content, children, ...params }) {
             {getHead()}
             <div className={className}>{children}</div>
           </div>
+        </div>
+      </div>
+
+      <div className="footer">
+        <div className="footer-content">
+
+          
         </div>
       </div>
     </div>

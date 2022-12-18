@@ -5,6 +5,7 @@
 // } from "react-router-dom";
 import { GoogleLogin,GoogleLogout } from 'react-google-login';
 import { gapi } from 'gapi-script';
+import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 
@@ -18,6 +19,8 @@ const clientId = '854331110586-ams6lqojo4dc3buer6ia5ov7jtjo92ca.apps.googleuserc
 var SCOPES = "https://accounts.google.com/o/oauth2/auth";
  // https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token
 export const LKHeader =() => {
+
+  const navigate = useNavigate();
 
   const [ profile, setProfile ] = useState([]);
   useEffect(() => {
@@ -49,6 +52,10 @@ export const LKHeader =() => {
         boxShadow:'0px'
   };
 
+  const toProfile=()=> {
+    
+    navigate("/profile" );
+  }
      
 
 const  GetProfile =()=> {
@@ -56,20 +63,15 @@ const  GetProfile =()=> {
     console.log('user image',profile);
     return  <div className='profile-box' >
             
-            <div className="moex-button-profile"> В профиль </div>   
+            <div  onClick={toProfile} className="moex-button-profile"> Кабинет (0)</div>   
              
-
-            {/* <h3>User Logged in</h3>
-            <p>Name: {profile.name}</p>
-            <p>Email Address: {profile.email}</p> */}
+ 
       
             <GoogleLogout clientId={clientId} 
                  render={renderProps => (
                   <div className='profile-box'> 
                     <div    
                     type="submit"
-
-          
                     color="primary"
                     className="auth-google"
                     onClick={renderProps.onClick}

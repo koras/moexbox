@@ -11,7 +11,7 @@ import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 
  
-import Events from './pages/Events';
+import Events from './pages/Events'; 
 import EventEdit from './pages/event/EventEdit';
 import EventEditComplete from './pages/event/EventEditComplete';
 import InspectEventShow from './pages/inspect/EventShow';
