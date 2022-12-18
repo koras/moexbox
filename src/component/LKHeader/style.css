@@ -3,7 +3,7 @@
   display: block;
   width: 100%;
   /* background: rgb(134, 21, 21); */
-  padding: 12px;
+  padding: 9px;
 }
 
 .header-box-lk {
@@ -19,4 +19,5 @@
  
  .header-box-lk__input {
   font-size: 16px;
+  padding: 5px;
  } 
