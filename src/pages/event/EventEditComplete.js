@@ -1,6 +1,6 @@
  
 // https://react-bootstrap-v4.netlify.app/getting-started/introduction/
-import React, { useRef,useState } from "react";
+import React   from "react";
 import { observer } from "mobx-react-lite";
 // https://reactrouter.com/en/main/hooks/use-params
 import Form from "react-bootstrap/Form";
@@ -11,7 +11,7 @@ import ContentBox from "../../component/ContentBox";
 
 import "./../stylePages.css";
 import { useNavigate,useParams  } from "react-router-dom";
-import { news } from "../../stories/storeNews";  
+ 
 
 
 
@@ -22,9 +22,8 @@ export const  EventEditComplete = observer( (  request ) => {
   
   const navigate = useNavigate();
  
-  const textButton = ()=>{
-    return 'Предложить изменение'; 
-  }
+
+  
   const goTicker= ()=>{
     navigate("/crypto/"+ticker);
   }
@@ -36,12 +35,7 @@ export const  EventEditComplete = observer( (  request ) => {
 
 
 
-  const options = [
-    { value: "blues", label: "Blues" },
-    { value: "rock", label: "Rock" },
-    { value: "jazz", label: "Jazz" },
-    { value: "orchestra", label: "Orchestra" },
-  ];
+
 
 
   let title = "Создание, редактирование событий/новостей";

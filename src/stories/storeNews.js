@@ -7,13 +7,11 @@ import { makeAutoObservable } from "mobx";
 import moment from "moment";
 
 //import _ from "lodash";
-let md5 = require('md5');
+//let md5 = require('md5');
 class storeNews {
   constructor() {
     makeAutoObservable(this);
-  }
-  // объект для редактирования
-  eventNew = {};
+  } 
 
   news = [
     {
@@ -36,7 +34,7 @@ class storeNews {
       },
       ticker: "btc",
       date: "01/03/2022",
-      title: "Рыба конь",
+      title: "Рыба конь 1",
       text: " сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в домашних условиях.",
       fulltext:
         "<p>повышением.</p> <br><br>Индикатор Мосбиржи подскочил почти на 11%Российский фондовый рынок после обвала в первой половине месяца завершает октябрь заметным повышением. Индикатор Мосбиржи подскочил почти на 11%Российский фондовый рынок после обвала в первой половине месяца завершает октябрь заметным повышением. Индикатор Мосбиржи подскочил почти на 11%Российский фондовый рынок после обвала в первой половине месяца завершает октябрь заметным повышением. Индикатор Мосбиржи подскочил почти на 11%Российский фондовый рынок после обвала в первой половине месяца завершает октябрь заметным повышением. Индикатор Мосбиржи подскочил почти на 11%Российский фондовый рынок после обвала в первой половине месяца завершает октябрь заметным повышением. Индикатор Мосбиржи подскочил почти на 11%",
@@ -125,12 +123,12 @@ class storeNews {
   ];
 
 
-
+  eventDate = '';
 
   default = {
     event: "",
     type: "",
-    typeId: 5,
+    typeId: 0,
     hash: '',
     ticker: "",
     title_url: "",
@@ -151,8 +149,15 @@ class storeNews {
     link: "",
   };
   
+  // объект для редактирования
+  eventNew = {};
+  
+ 
+
+
   getGefault(ticker) { 
-    return  this.eventNew =Object.assign({}, this.default );
+   this.eventNew = Object.assign({}, this.default );
+    return  this.eventNew  ;
   }
 
 
@@ -163,7 +168,8 @@ class storeNews {
          this.eventNew.typeId = value.value;
           this.eventNew.event = value.label;
           this.eventNew.type = value.type;
-      return this.eventNew;
+          console.log(this.eventNew);
+      return value;
     }
 
     this.news.forEach((element) => {
@@ -182,16 +188,32 @@ class storeNews {
 
   // обновляем дату при редактированиие события
   setDateEvent(id, date) {
-    if(date){ 
+    console.log(id, date);
+    if(id && date){ 
     console.log(date);
+    
+    
       this.news.forEach((element) => {
         if (element.id === id) {
           element.date = moment(date).format("DD/MM/YYYY");
           this.eventNew.date = moment(date).format("DD/MM/YYYY");
         }
       });
+    }else{
+       this.eventDate = moment(date).format("DD/MM/YYYY");
     }
+  }// обновляем дату при редактированиие события
+
+
+
+
+  getDateNew() {
+    if(this.eventNew && this.eventNew.date){
+     return this.eventNew.date
+    } 
   }
+
+
 
   changeEventName(id, text) { 
   //    if(element.id)
@@ -243,9 +265,9 @@ class storeNews {
 
   // сохраняем событие
   saveEvent=()=> {
-    console.log( this.eventNew);
+  //  console.log( this.eventNew);
     return this.eventNew.hash;
-   return md5(this.eventNew.text +  Math.floor(Math.random()));
+   //return md5(this.eventNew.text +  Math.floor(Math.random()));
   }
   getInspectEvent(hash){
     // сперва пытаемся получить новость по хэшу
@@ -258,8 +280,8 @@ class storeNews {
 
   getNew(ticker, url) {
     // сперва пытаемся получить новость по хэшу
-    const event = this.news.filter((item) => {
-      return item.url === url && item.ticker === ticker ||  item.hash === url && item.ticker === ticker ;
+    const event  = this.news.filter((item) => {
+      return (item.url === url && item.ticker === ticker) ||  (item.hash === url && item.ticker === ticker) ;
     });
     this.eventNew = Object.assign({}, event[0]);
     return event[0];

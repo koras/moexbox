@@ -80,12 +80,12 @@ ChartJS.register(
   //  console.log(items);
   //  console.log(items[0].index);
   //  console.log(chartRef.current);
-    console.log(chartRef.current.data.datasets[0].data      ); 
+  //  console.log(chartRef.current.data.datasets[0].data      ); 
     let   chart = chartRef.current;
     chart.data.datasets[0].data.push(123)
     chart.data.labels.push('color');
 
-    console.log(chart.options ); 
+   // console.log(chart.options ); 
   //  console.log(chart.options.elements.line.borderDash.push(3) ); 
    // chart.options.scales[2].title='asdasd'
 

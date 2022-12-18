@@ -1,5 +1,5 @@
 // https://react-bootstrap-v4.netlify.app/getting-started/introduction/
-import React, { useState } from "react";
+import React from "react";
 import { observer } from "mobx-react-lite";
 // https://reactrouter.com/en/main/hooks/use-params
 import Form from "react-bootstrap/Form";
@@ -24,24 +24,11 @@ export const Events = observer((request) => {
   let { hash } = useParams();
   const navigate = useNavigate();
 
-  const changeTypeEvent = (value) => {
-    news.changeTypeEvent(storeNew.id, value);
-  };
+ 
+ 
+  
 
-  const textButton = () => {
-    return "Предложить изменение";
-  };
 
-  const options = [
-    { value: "blues", label: "Blues" },
-    { value: "rock", label: "Rock" },
-    { value: "jazz", label: "Jazz" },
-    { value: "orchestra", label: "Orchestra" },
-  ];
-  const [isOpen, setIsOpen] = useState(false);
-  const [isInvalidTitle, setIsInvalidTitle] = useState(false);
-  const [isInvalidSource, setIsInvalidSource] = useState(false);
-  const [isInvalidText, setIsInvalidText] = useState(false);
 
   // получаем редактируемую новость
   const storeNew = newsInspect.getEvent(hash);

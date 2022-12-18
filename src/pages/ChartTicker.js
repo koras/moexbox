@@ -70,7 +70,6 @@ function ChartTicker() {
     hintInfo: "в течении суток",
     changes: "+212",
   };
-  const addEvent = () => {};
 
   return (
     <ContentBox title="" hideBorder={true}>
