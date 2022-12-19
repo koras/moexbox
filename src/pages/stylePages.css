@@ -8,6 +8,7 @@
 
 .page-text {
   padding: 10px;
+  font-size: 17px;
 }
 
 .event-head {
@@ -28,9 +29,9 @@
 }
 
 .event-date {
-  font-weight: 600;  
+  font-weight: 100;  
   padding: 10px;
-  font-size: 12px;
+  font-size: 17px;
   justify-content: flex-end;
   display: flex;
   flex-direction: row;  
