@@ -50,10 +50,48 @@ ChartJS.register(
     subtitle: {
       display: false,
       text: ''
-  }
+  },
 
+  tooltip: {
+    callbacks: {
+        label: function(context) {
+          console.log(context);
+            let label = context.dataset.label || '';
 
-
+            if (label) {
+                label += ': ';
+            }
+            if (context.parsed.y !== null) {
+                label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+            }
+            return label;
+        }
+      },
+    },
+ 
+    tooltips: {
+      mode: "index",
+      intersect: false,
+    },
+    
+    hover: {
+      mode: "nearest",
+      intersect: false,
+    },
+  
+   // legend: {
+   //   display: true,
+   //   position: "right",
+   //   align: "start",
+   //   labels: {
+   //     usePointStyle: true,
+   //     boxWidth: 6,
+    //  },
+   //   title: {
+    //    display: true,
+   //     text: "Chart.js Bar Chart",
+    //  },
+   // },
   },
   scales: {
     y: {
@@ -94,6 +132,16 @@ ChartJS.register(
     // ChartJS.update();
     }
   },
+  legend: {
+      display: false
+  },
+      tooltips: {
+        callbacks: {
+           label: function(tooltipItem) {
+                  return tooltipItem.yLabel;
+           }
+        }
+    }
 };
 
  

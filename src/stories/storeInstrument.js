@@ -2,8 +2,9 @@
 // https://www.tradingview.com/symbols/BTCUSD/history-timeline/#the-british-are-coming-2022-09-30
 
 import { makeAutoObservable } from "mobx";
+import { dataBitcoin } from "./bitcoinData";
 //import _ from "lodash";
-
+ 
 class storeInstrument {
   constructor() {
     makeAutoObservable(this);
@@ -144,51 +145,30 @@ class storeInstrument {
   getChart(ticker) {
     return {
       fill: true,
-      labels: [
-        "Red",
-        "Blue",
-        "Yellow",
-        "Green",
-        "Purple",
-        "Orange",
-        "Blue",
-        "Yellow",
-        "Green",
-        "Purple",
-        "Orange",
-        "Blue",
-        "Yellow",
-        "Green",
-        "Purple",
-        "Orange",
+      labels: [ 
+        "2022-12-18",
+        "",
+        "",
+        "",
+        "",
       ],
       datasets: [
         {
           fill: true,
-          label: [
-            "asd",
-            "asd",
-            "",
-            "asd",
-            "asd",
-            "asd",
-            "",
-            "asd",
-            "asd",
-            "asd",
-          ],
-          data: [
-            12, 19, 3, 5, 2, 3, 19, 3, 5, 2, 3, 19, 3, 5, 2, 3, 19, 3, 5, 2, 3,
-          ],
-
+     
+          data:dataBitcoin,
+       
+          parsing: {
+            xAxisKey: "Label",
+            yAxisKey: "Price",
+          },
           backgroundColor: [
-            "rgba(255, 99, 132, 0.2)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(255, 206, 86, 0.2)",
-            "rgba(75, 192, 192, 0.2)",
-            "rgba(153, 102, 255, 0.2)",
-            "rgba(255, 159, 64, 0.2)",
+            "rgba(255, 99, 132, 0.2)", 
           ],
+          pointRadius: [1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, ],
           borderColor: [
             "rgba(255, 99, 132, 1)",
             "rgba(54, 162, 235, 1)",
@@ -197,9 +177,10 @@ class storeInstrument {
             "rgba(153, 102, 255, 1)",
             "rgba(255, 159, 64, 1)",
           ],
-          borderWidth: [4, 4, 25, 4, 4, 4],
+          //  borderWidth: [2, 2,   3, 2, 4, 4],
+          borderWidth: 1,
           //  borderWidth: 1,
-          tension: 0.5,
+          tension: 0.1,
         },
       ],
     };
